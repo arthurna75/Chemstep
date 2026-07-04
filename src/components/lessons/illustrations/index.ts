@@ -14,6 +14,8 @@ import CovalentBondDiagram from './CovalentBondDiagram'
 import MolecularPolarityDiagram from './MolecularPolarityDiagram'
 import MoleConceptDiagram from './MoleConceptDiagram'
 import GasMolarVolumeDiagram from './GasMolarVolumeDiagram'
+import ChemEquationDiagram from './ChemEquationDiagram'
+import ReactionEnergyDiagram from './ReactionEnergyDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -31,4 +33,6 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '결합의 극성과 분자의 극성': MolecularPolarityDiagram,
   '몰의 개념 (아보가드로 수)': MoleConceptDiagram,
   '기체의 몰 부피': GasMolarVolumeDiagram,
+  '화학 반응식의 표현': ChemEquationDiagram,
+  '화학 반응에서의 에너지 변화': ReactionEnergyDiagram,
 }
