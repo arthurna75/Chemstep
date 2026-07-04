@@ -228,7 +228,7 @@ BEGIN
     '- C-rate: 충방전 속도 (1C = 1시간에 완전 방전)',
     '[
       {"label": "납축전지 전압", "formula": "셀 전압 ≈ 2V, 12V 배터리 = 6셀 직렬", "description": "각 셀의 산화(Pb→PbSO₄)와 환원(PbO₂→PbSO₄) 반응에서 약 2V 발생"},
-      {"label": "리튬이온 전지 작동 원리", "formula": "방전: Li⁺ 음극→양극 이동 / 충전: Li⁺ 양극→음극 이동", "description": "Li⁺가 두 전극 사이를 왕복하는 '흔들의자(Rocking Chair)' 메커니즘"}
+      {"label": "리튬이온 전지 작동 원리", "formula": "방전: Li⁺ 음극→양극 이동 / 충전: Li⁺ 양극→음극 이동", "description": "Li⁺가 두 전극 사이를 왕복하는 흔들의자(Rocking Chair) 메커니즘"}
     ]'::jsonb,
     '[
       {"problem": "납축전지를 충전할 때 음극(Pb)에서 일어나는 반응을 쓰시오.", "solution": "충전 시 방전의 역반응: PbSO₄ + 2e⁻ → Pb + SO₄²⁻ (환원). 충전 중에는 음극에서 환원이 일어난다."},
