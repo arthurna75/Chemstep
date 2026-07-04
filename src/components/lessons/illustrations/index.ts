@@ -9,6 +9,9 @@ import AtomicRadiusTrendDiagram from './AtomicRadiusTrendDiagram'
 import IonizationEnergyDiagram from './IonizationEnergyDiagram'
 import PeriodicTableHistoryDiagram from './PeriodicTableHistoryDiagram'
 import ElementClassificationDiagram from './ElementClassificationDiagram'
+import IonicBondDiagram from './IonicBondDiagram'
+import CovalentBondDiagram from './CovalentBondDiagram'
+import MolecularPolarityDiagram from './MolecularPolarityDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -21,4 +24,7 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '금속, 비금속, 준금속': ElementClassificationDiagram,
   '원자 반지름의 주기적 변화': AtomicRadiusTrendDiagram,
   '이온화 에너지와 전기 음성도': IonizationEnergyDiagram,
+  '이온 결합': IonicBondDiagram,
+  '공유 결합': CovalentBondDiagram,
+  '결합의 극성과 분자의 극성': MolecularPolarityDiagram,
 }
