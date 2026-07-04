@@ -340,7 +340,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '원자 번호 순서', false, 1),
     (v_quiz_id, '원자량 순서', true, 2),
     (v_quiz_id, '전기 음성도 순서', false, 3),
@@ -356,7 +356,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '16.0', false, 1),
     (v_quiz_id, '23.0', true, 2),
     (v_quiz_id, '28.1', false, 3),
@@ -372,7 +372,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '돌베라이너', false, 1),
     (v_quiz_id, '뉴랜즈', false, 2),
     (v_quiz_id, '멘델레예프', false, 3),
@@ -392,7 +392,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '가로줄이며, 같은 주기 원소는 전자 껍질 수가 같다.', false, 1),
     (v_quiz_id, '세로줄이며, 같은 족 원소는 원자가 전자 수가 같다.', true, 2),
     (v_quiz_id, '가로줄이며, 같은 주기 원소는 원자가 전자 수가 같다.', false, 3),
@@ -408,7 +408,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '2주기 17족', false, 1),
     (v_quiz_id, '3주기 7족', false, 2),
     (v_quiz_id, '3주기 17족', true, 3),
@@ -424,7 +424,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '나트륨(Na)', false, 1),
     (v_quiz_id, '칼슘(Ca)', false, 2),
     (v_quiz_id, '구리(Cu)', true, 3),
@@ -444,7 +444,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, 'Li > Na > K > Rb > Cs', false, 1),
     (v_quiz_id, 'Cs > Rb > K > Na > Li', true, 2),
     (v_quiz_id, 'Na > K > Li > Rb > Cs', false, 3),
@@ -460,7 +460,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '준금속 원소이다.', false, 1),
     (v_quiz_id, '반도체 성질을 가진다.', false, 2),
     (v_quiz_id, '금속과 비금속의 중간 성질을 가진다.', false, 3),
@@ -476,7 +476,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '반응성이 매우 강하여 금속과 쉽게 결합한다.', false, 1),
     (v_quiz_id, '원자가 전자가 1개여서 안정하다.', false, 2),
     (v_quiz_id, '최외각 전자 껍질이 완전히 채워져 화학 반응을 거의 하지 않는다.', true, 3),
@@ -496,7 +496,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, '전자 껍질 수가 감소하기 때문이다.', false, 1),
     (v_quiz_id, '유효 핵전하가 증가하여 전자를 더 강하게 당기기 때문이다.', true, 2),
     (v_quiz_id, '중성자 수가 증가하여 원자핵이 수축하기 때문이다.', false, 3),
@@ -512,7 +512,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, 'Na', false, 1),
     (v_quiz_id, 'Mg', false, 2),
     (v_quiz_id, 'K', true, 3),
@@ -528,7 +528,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, 'Na < Na⁺', false, 1),
     (v_quiz_id, 'Na = Na⁺', false, 2),
     (v_quiz_id, 'Na > Na⁺', true, 3),
@@ -548,7 +548,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, 'Na', false, 1),
     (v_quiz_id, 'Cl', false, 2),
     (v_quiz_id, 'Ne', true, 3),
@@ -564,7 +564,7 @@ BEGIN
   )
   RETURNING id INTO v_quiz_id;
 
-  INSERT INTO quiz_options (quiz_id, option_text, is_correct, order_index) VALUES
+  INSERT INTO quiz_options (quiz_id, content, is_correct, order_index) VALUES
     (v_quiz_id, 'O (3.5)', false, 1),
     (v_quiz_id, 'F (4.0)', true, 2),
     (v_quiz_id, 'N (3.0)', false, 3),
