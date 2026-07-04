@@ -16,6 +16,11 @@ import MoleConceptDiagram from './MoleConceptDiagram'
 import GasMolarVolumeDiagram from './GasMolarVolumeDiagram'
 import ChemEquationDiagram from './ChemEquationDiagram'
 import ReactionEnergyDiagram from './ReactionEnergyDiagram'
+import DanielCellDiagram from './DanielCellDiagram'
+import FuelCellDiagram from './FuelCellDiagram'
+import FractionalDistillationDiagram from './FractionalDistillationDiagram'
+import HessLawDiagram from './HessLawDiagram'
+import CombustionComparisonDiagram from './CombustionComparisonDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -35,4 +40,12 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '기체의 몰 부피': GasMolarVolumeDiagram,
   '화학 반응식의 표현': ChemEquationDiagram,
   '화학 반응에서의 에너지 변화': ReactionEnergyDiagram,
+  // Chapter 6: 산화-환원과 전기화학
+  '전기화학 전지의 원리': DanielCellDiagram,
+  '연료전지: 수소 경제의 핵심': FuelCellDiagram,
+  // Chapter 7: 탄화수소와 석유 정제
+  '원유의 구성과 분별 증류': FractionalDistillationDiagram,
+  // Chapter 8: 열화학과 연소공학
+  '반응 엔탈피와 헤스 법칙': HessLawDiagram,
+  '연소 반응의 화학량론': CombustionComparisonDiagram,
 }
