@@ -63,15 +63,15 @@ export default async function LessonPage({ params }: Props) {
         </div>
       )}
 
-      {/* 개념 설명 */}
-      <ConceptSection content={lesson!.content} />
-
       {/* 레슨 비주얼 보충 (표 + 미니 주기율표) */}
       {LessonVisuals && (
         <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
           <LessonVisuals />
         </div>
       )}
+
+      {/* 개념 설명 */}
+      <ConceptSection content={lesson!.content} />
 
       {/* 핵심 공식 */}
       {formulas.length > 0 && <FormulaSection formulas={formulas} />}
