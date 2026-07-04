@@ -12,6 +12,8 @@ import ElementClassificationDiagram from './ElementClassificationDiagram'
 import IonicBondDiagram from './IonicBondDiagram'
 import CovalentBondDiagram from './CovalentBondDiagram'
 import MolecularPolarityDiagram from './MolecularPolarityDiagram'
+import MoleConceptDiagram from './MoleConceptDiagram'
+import GasMolarVolumeDiagram from './GasMolarVolumeDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -27,4 +29,6 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '이온 결합': IonicBondDiagram,
   '공유 결합': CovalentBondDiagram,
   '결합의 극성과 분자의 극성': MolecularPolarityDiagram,
+  '몰의 개념 (아보가드로 수)': MoleConceptDiagram,
+  '기체의 몰 부피': GasMolarVolumeDiagram,
 }
