@@ -7,6 +7,8 @@ import ValenceElectronDiagram from './ValenceElectronDiagram'
 import PeriodGroupDiagram from './PeriodGroupDiagram'
 import AtomicRadiusTrendDiagram from './AtomicRadiusTrendDiagram'
 import IonizationEnergyDiagram from './IonizationEnergyDiagram'
+import PeriodicTableHistoryDiagram from './PeriodicTableHistoryDiagram'
+import ElementClassificationDiagram from './ElementClassificationDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -14,7 +16,9 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '동위 원소': IsotopesDiagram,
   '전자 배치': ElectronConfigDiagram,
   '원자가 전자와 화학적 성질': ValenceElectronDiagram,
+  '주기율표의 발전': PeriodicTableHistoryDiagram,
   '주기와 족': PeriodGroupDiagram,
+  '금속, 비금속, 준금속': ElementClassificationDiagram,
   '원자 반지름의 주기적 변화': AtomicRadiusTrendDiagram,
   '이온화 에너지와 전기 음성도': IonizationEnergyDiagram,
 }

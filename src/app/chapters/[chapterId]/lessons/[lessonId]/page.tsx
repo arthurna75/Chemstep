@@ -6,6 +6,7 @@ import FormulaSection from '@/components/lessons/FormulaSection'
 import ExampleSection from '@/components/lessons/ExampleSection'
 import AnalogySection from '@/components/lessons/AnalogySection'
 import { LESSON_ILLUSTRATIONS } from '@/components/lessons/illustrations'
+import { LESSON_VISUALS } from '@/components/lessons/visuals'
 import type { KeyFormula, Example } from '@/types'
 
 interface Props {
@@ -29,6 +30,7 @@ export default async function LessonPage({ params }: Props) {
   const formulas = (lesson!.key_formulas ?? []) as KeyFormula[]
   const examples = (lesson!.examples ?? []) as Example[]
   const Illustration = LESSON_ILLUSTRATIONS[lesson!.title]
+  const LessonVisuals = LESSON_VISUALS[lesson!.title]
 
   return (
     <div className="space-y-6">
@@ -63,6 +65,13 @@ export default async function LessonPage({ params }: Props) {
 
       {/* 개념 설명 */}
       <ConceptSection content={lesson!.content} />
+
+      {/* 레슨 비주얼 보충 (표 + 미니 주기율표) */}
+      {LessonVisuals && (
+        <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6">
+          <LessonVisuals />
+        </div>
+      )}
 
       {/* 핵심 공식 */}
       {formulas.length > 0 && <FormulaSection formulas={formulas} />}
