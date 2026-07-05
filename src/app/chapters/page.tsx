@@ -1,11 +1,15 @@
-import { getChapters } from '@/lib/data'
+import { getChapters, getCurrentUser, getProgressSummaryForUser } from '@/lib/data'
 import ChapterCard from '@/components/chapters/ChapterCard'
 import type { Chapter } from '@/types'
+import type { ProgressSummary } from '@/lib/data'
 
 export default async function ChaptersPage() {
   let chapters: Chapter[] = []
+  let summary: ProgressSummary | null = null
   try {
     chapters = await getChapters()
+    const user = await getCurrentUser()
+    summary = await getProgressSummaryForUser(user?.id ?? null)
   } catch {
     // Supabase 미설정 시
   }
@@ -19,14 +23,17 @@ export default async function ChaptersPage() {
 
       {chapters.length > 0 ? (
         <div className="grid gap-4">
-          {chapters.map(chapter => (
-            <ChapterCard
-              key={chapter.id}
-              chapter={chapter}
-              lessonCount={0}
-              completedCount={0}
-            />
-          ))}
+          {chapters.map(chapter => {
+            const chapterSummary = summary?.chapters.find(c => c.chapterId === chapter.id)
+            return (
+              <ChapterCard
+                key={chapter.id}
+                chapter={chapter}
+                lessonCount={chapterSummary?.totalLessons ?? 0}
+                completedCount={chapterSummary?.completedLessons ?? 0}
+              />
+            )
+          })}
         </div>
       ) : (
         <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 text-center">

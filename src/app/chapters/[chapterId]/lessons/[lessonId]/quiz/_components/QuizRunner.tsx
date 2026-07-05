@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import type { QuizWithOptions } from '@/types'
 import QuizCard from '@/components/quiz/QuizCard'
+import { recordQuizAnswer, finishLessonQuiz } from '@/lib/actions/progress'
 
 interface Props {
   quizzes: QuizWithOptions[]
@@ -26,10 +27,21 @@ export default function QuizRunner({ quizzes, lessonTitle, chapterId, lessonId }
 
   const currentQuiz = quizzes[currentIndex]
   const score = answers.filter(a => a.isCorrect).length
+  const percent = Math.round((score / quizzes.length) * 100)
+  const passed = percent >= 60
+
+  const finishRecorded = useRef(false)
+  useEffect(() => {
+    if (finished && !finishRecorded.current) {
+      finishRecorded.current = true
+      finishLessonQuiz(lessonId, passed).catch(() => {})
+    }
+  }, [finished, passed, lessonId])
 
   function handleAnswer(isCorrect: boolean, quizId: string, optionId: string) {
     setAnswers(prev => [...prev, { quizId, optionId, isCorrect }])
     setAnswered(true)
+    recordQuizAnswer(quizId, optionId, isCorrect).catch(() => {})
   }
 
   function handleNext() {
@@ -42,9 +54,6 @@ export default function QuizRunner({ quizzes, lessonTitle, chapterId, lessonId }
   }
 
   if (finished) {
-    const percent = Math.round((score / quizzes.length) * 100)
-    const passed = percent >= 60
-
     return (
       <div className="space-y-6">
         <div className={`rounded-2xl p-8 text-center ${passed ? 'bg-green-50 border border-green-200' : 'bg-orange-50 border border-orange-200'}`}>

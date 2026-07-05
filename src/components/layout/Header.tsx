@@ -1,6 +1,11 @@
 import Link from 'next/link'
+import { getCurrentUser } from '@/lib/data'
+import { signOutUser } from '@/lib/actions/progress'
 
-export default function Header() {
+export default async function Header() {
+  const user = await getCurrentUser()
+  const isRealAccount = !!user && !user.is_anonymous
+
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
       <div className="mx-auto max-w-4xl px-4 h-14 flex items-center justify-between">
@@ -12,6 +17,20 @@ export default function Header() {
           <Link href="/chapters" className="hover:text-blue-600 transition-colors">
             단원 목록
           </Link>
+          <Link href="/progress" className="hover:text-blue-600 transition-colors">
+            내 진행 상황
+          </Link>
+          {isRealAccount ? (
+            <form action={signOutUser}>
+              <button type="submit" className="hover:text-blue-600 transition-colors">
+                로그아웃
+              </button>
+            </form>
+          ) : (
+            <Link href="/login" className="hover:text-blue-600 transition-colors">
+              로그인
+            </Link>
+          )}
         </nav>
       </div>
     </header>

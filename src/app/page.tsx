@@ -1,10 +1,18 @@
 import Link from 'next/link'
-import { getChapters } from '@/lib/data'
+import { getChapters, getCurrentUser, getNextLessonForUser, getProgressSummaryForUser } from '@/lib/data'
 
 export default async function HomePage() {
   let chapters: Awaited<ReturnType<typeof getChapters>> = []
+  let nextLesson: Awaited<ReturnType<typeof getNextLessonForUser>> = null
+  let completedLessons = 0
+  let correctAnswers = 0
   try {
     chapters = await getChapters()
+    const user = await getCurrentUser()
+    nextLesson = await getNextLessonForUser(user?.id ?? null)
+    const summary = await getProgressSummaryForUser(user?.id ?? null)
+    completedLessons = summary.completedLessons
+    correctAnswers = summary.correctAnswers
   } catch {
     // Supabase 미설정 시 빈 배열 사용
   }
@@ -26,9 +34,9 @@ export default async function HomePage() {
           >
             🚀 학습 시작하기
           </Link>
-          {totalChapters > 0 && (
+          {nextLesson && (
             <Link
-              href={`/chapters/${chapters[0].id}`}
+              href={`/chapters/${nextLesson.chapterId}/lessons/${nextLesson.lessonId}`}
               className="bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl border border-blue-400 hover:bg-blue-400 transition-colors"
             >
               ▶ 이어서 공부하기
@@ -41,8 +49,8 @@ export default async function HomePage() {
       <section className="grid grid-cols-3 gap-4">
         {[
           { label: '전체 단원', value: totalChapters, icon: '📚' },
-          { label: '학습 레슨', value: '0', icon: '📝' },
-          { label: '퀴즈 완료', value: '0', icon: '✅' },
+          { label: '학습 레슨', value: completedLessons, icon: '📝' },
+          { label: '퀴즈 완료', value: correctAnswers, icon: '✅' },
         ].map(stat => (
           <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-4 text-center">
             <div className="text-2xl mb-1">{stat.icon}</div>

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getQuizzesByLessonId, getLessonById } from '@/lib/data'
 import QuizRunner from './_components/QuizRunner'
+import EmptyQuizNotice from './_components/EmptyQuizNotice'
 
 interface Props {
   params: Promise<{ chapterId: string; lessonId: string }>
@@ -20,13 +21,7 @@ export default async function QuizPage({ params }: Props) {
   }
 
   if (quizzes.length === 0) {
-    return (
-      <div className="text-center py-16">
-        <p className="text-4xl mb-4">📭</p>
-        <p className="text-gray-600 font-medium">아직 퀴즈가 없습니다</p>
-        <p className="text-sm text-gray-400 mt-1">레슨 학습으로 돌아가세요</p>
-      </div>
-    )
+    return <EmptyQuizNotice lessonId={lessonId} />
   }
 
   return (
