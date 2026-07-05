@@ -23,20 +23,20 @@ export default function SecondaryBatteryDiagram() {
       </defs>
 
       {/* ── 왼쪽 패널: 방전 (Discharge) ── */}
-      <rect x="20" y="46" width="210" height="230" rx="6" fill="#EFF6FF" stroke="#93C5FD" strokeWidth="2" />
-      <text x="125" y="68" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1D4ED8">
+      <rect x="20" y="36" width="210" height="240" rx="6" fill="#EFF6FF" stroke="#93C5FD" strokeWidth="2" />
+      <text x="125" y="52" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1D4ED8">
         방전 (Discharge)
       </text>
 
       {/* 음극/양극 박스 (방전) */}
       <rect x="35" y="82" width="60" height="120" rx="3" fill="#94A3B8" />
-      <text x="65" y="76" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#475569">음극(흑연)</text>
+      <text x="65" y="98" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#FFFFFF">음극(흑연)</text>
       <rect x="165" y="82" width="60" height="120" rx="3" fill="#F59E0B" />
-      <text x="195" y="76" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#92400E">양극(LiCoO₂)</text>
+      <text x="195" y="98" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#FFFFFF">양극(LiCoO₂)</text>
 
       {/* 전자 흐름 (외부회로, 음극→양극) */}
-      <polyline points="65,82 65,58 195,58 195,82" fill="none" stroke="#3B82F6" strokeWidth="2.5" markerEnd="url(#arrowBlue)" />
-      <text x="130" y="52" textAnchor="middle" fontSize="10" fill="#1D4ED8">e⁻ (음극→양극)</text>
+      <polyline points="65,82 65,76 195,76 195,82" fill="none" stroke="#3B82F6" strokeWidth="2.5" markerEnd="url(#arrowBlue)" />
+      <text x="130" y="68" textAnchor="middle" fontSize="10" fill="#1D4ED8">e⁻ (음극→양극)</text>
 
       {/* Li+ 이온 흐름 (전해질, 음극→양극) */}
       <line x1="95" y1="142" x2="163" y2="142" stroke="#1D4ED8" strokeWidth="2" markerEnd="url(#arrowBlue)" />
@@ -48,20 +48,20 @@ export default function SecondaryBatteryDiagram() {
       <text x="125" y="256" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1D4ED8">전기 에너지 생성 → 사용</text>
 
       {/* ── 오른쪽 패널: 충전 (Charge) ── */}
-      <rect x="250" y="46" width="210" height="230" rx="6" fill="#FEF2F2" stroke="#FCA5A5" strokeWidth="2" />
-      <text x="355" y="68" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#B91C1C">
+      <rect x="250" y="36" width="210" height="240" rx="6" fill="#FEF2F2" stroke="#FCA5A5" strokeWidth="2" />
+      <text x="355" y="52" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#B91C1C">
         충전 (Charge)
       </text>
 
       {/* 음극/양극 박스 (충전) */}
       <rect x="265" y="82" width="60" height="120" rx="3" fill="#94A3B8" />
-      <text x="295" y="76" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#475569">음극(흑연)</text>
+      <text x="295" y="98" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#FFFFFF">음극(흑연)</text>
       <rect x="395" y="82" width="60" height="120" rx="3" fill="#F59E0B" />
-      <text x="425" y="76" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#92400E">양극(LiCoO₂)</text>
+      <text x="425" y="98" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#FFFFFF">양극(LiCoO₂)</text>
 
       {/* 전자 흐름 (외부전원이 역방향으로 강제, 양극→음극) */}
-      <polyline points="425,82 425,58 295,58 295,82" fill="none" stroke="#EF4444" strokeWidth="2.5" markerEnd="url(#arrowRed)" />
-      <text x="360" y="52" textAnchor="middle" fontSize="10" fill="#B91C1C">외부전원 강제 e⁻ (양극→음극)</text>
+      <polyline points="425,82 425,76 295,76 295,82" fill="none" stroke="#EF4444" strokeWidth="2.5" markerEnd="url(#arrowRed)" />
+      <text x="360" y="68" textAnchor="middle" fontSize="10" fill="#B91C1C">외부전원 강제 e⁻ (양극→음극)</text>
 
       {/* Li+ 이온 흐름 역방향 (양극→음극) */}
       <line x1="393" y1="142" x2="325" y2="142" stroke="#B91C1C" strokeWidth="2" markerEnd="url(#arrowRed)" />
