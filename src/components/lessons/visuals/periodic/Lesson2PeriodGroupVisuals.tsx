@@ -6,6 +6,24 @@ export default function Lesson2PeriodGroupVisuals() {
     <div className="space-y-6">
       <div>
         <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span className="text-blue-600">📊</span> 주기(Period)별 원소 수
+        </h3>
+        <ChemTable
+          headers={['주기', '전자 껍질 수', '원소 개수', '원소 범위']}
+          rows={[
+            ['1주기', '1개', '2개', 'H ~ He'],
+            ['2주기', '2개', '8개', 'Li ~ Ne'],
+            ['3주기', '3개', '8개', 'Na ~ Ar'],
+            ['4주기', '4개', '18개', 'K ~ Kr'],
+            ['5주기', '5개', '18개', 'Rb ~ Xe'],
+            ['6주기', '6개', '32개', 'Cs ~ Rn'],
+            ['7주기', '7개', '32개', 'Fr ~ Og'],
+          ]}
+          caption="전자 껍질 수가 곧 주기 번호입니다"
+        />
+      </div>
+      <div>
+        <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
           <span className="text-blue-600">📊</span> 주요 족(Group) 정리
         </h3>
         <ChemTable

@@ -33,6 +33,21 @@ export default function Lesson4AtomicRadiusVisuals() {
       </div>
       <div>
         <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span className="text-blue-600">📊</span> 원자 반지름 vs 이온 반지름
+        </h3>
+        <ChemTable
+          headers={['입자', '반지름(pm)', '비고']}
+          rows={[
+            ['Na (원자)', '186', '전자 11개'],
+            ['Na⁺ (양이온)', '102', '전자 10개 — 전자를 잃어 반지름 감소'],
+            ['Cl (원자)', '99', '전자 17개'],
+            ['Cl⁻ (음이온)', '181', '전자 18개 — 전자를 얻어 반지름 증가'],
+          ]}
+          caption="양이온은 원래 원자보다 작고, 음이온은 원래 원자보다 크다"
+        />
+      </div>
+      <div>
+        <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
           <span className="text-blue-600">🧪</span> 원자 반지름 경향
         </h3>
         <PeriodicTableMini mode="trend-radius" caption="원자 반지름 경향: → 감소, ↓ 증가" />

@@ -20,6 +20,20 @@ export default function Lesson3ClassificationVisuals() {
       </div>
       <div>
         <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span className="text-blue-600">📊</span> 비활성 기체의 활용
+        </h3>
+        <ChemTable
+          headers={['원소', '기호', '주요 용도']}
+          rows={[
+            ['헬륨', 'He', '기구, MRI 냉각'],
+            ['네온', 'Ne', '네온사인'],
+            ['아르곤', 'Ar', '형광등, 백열전구 충전 기체'],
+            ['크립톤·제논', 'Kr, Xe', '특수 조명'],
+          ]}
+        />
+      </div>
+      <div>
+        <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
           <span className="text-blue-600">🧪</span> 주기율표에서의 분류
         </h3>
         <PeriodicTableMini

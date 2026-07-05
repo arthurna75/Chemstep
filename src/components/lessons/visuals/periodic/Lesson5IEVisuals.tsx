@@ -33,6 +33,22 @@ export default function Lesson5IEVisuals() {
       </div>
       <div>
         <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <span className="text-blue-600">📊</span> 순차 이온화 에너지 (Na 예시)
+        </h3>
+        <ChemTable
+          headers={['단계', '에너지(kJ/mol)', '비고']}
+          rows={[
+            ['IE₁', '496', '3주기 원자가 전자(1개) 제거'],
+            ['IE₂', '4562', '급격한 도약 — 안쪽 전자 껍질 진입'],
+            ['IE₃', '6910', '내부 전자 계속 제거'],
+            ['IE₄', '9540', '내부 전자 계속 제거'],
+          ]}
+          highlightCol={1}
+          caption="IE₁ → IE₂ 사이의 큰 도약이 Na가 1족 원소(원자가 전자 1개)임을 보여준다"
+        />
+      </div>
+      <div>
+        <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
           <span className="text-blue-600">🧪</span> 이온화 에너지 · 전기 음성도 경향
         </h3>
         <PeriodicTableMini mode="trend-ie" caption="이온화 에너지·전기 음성도 경향: → 증가, ↓ 감소" />
