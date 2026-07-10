@@ -29,8 +29,8 @@
 **RLS(Row Level Security)**: 모든 테이블에서 활성화되어 있습니다. 콘텐츠 테이블은 누구나 읽기 가능, 진행상황/응답 테이블은 `auth.uid() = user_id`로 본인 것만 접근 가능하도록 정책이 걸려 있습니다.
 
 - [ ] **리스크 — 마이그레이션 추적 없음**: `supabase/` 안에 정식 마이그레이션 폴더/툴이 없습니다. 스키마를 바꾸면 `schema.sql`을 수정하는 것과 별개로, 이미 존재하는 운영 DB에는 `supabase/migration_*.sql` 형태의 파일을 만들어 Supabase SQL Editor에 수동으로 실행해야 반영됩니다(예: `migration_add_chapter_track.sql`). "지금 운영 DB에 무엇이 실제로 반영돼 있는지"를 추적할 방법이 없어, 스키마를 바꿀 때마다 `schema.sql`+마이그레이션 파일을 함께 남기는 습관이 유일한 안전장치입니다.
-- [ ] **리스크 — `schema.sql`이 실제 DB 상태와 불일치**: `schema.sql` 안의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 `seed_chapter1.sql` ~ `seed_chapter8_*.sql`까지 8개 단원(기본 트랙) + `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`(심화 트랙 2개 단원) 콘텐츠가 별도로 실행되어 있습니다. 즉 `schema.sql`만 보고 새 환경(예: 스테이징)을 구축하면 5개 단원이 빠지고, `migration_add_chapter_track.sql`도 별도로 실행해야 `track` 컬럼이 생깁니다.
-- **시드 파일 현황**: `seed_chapter1.sql`은 구버전, `seed_chapter1_v2.sql`이 최종본입니다(1단원은 v2만 실행하면 됨). 나머지는 챕터당 파일 하나씩. `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`은 `track='advanced'`로 삽입되는 심화과정 챕터입니다.
+- [ ] **리스크 — `schema.sql`이 실제 DB 상태와 불일치**: `schema.sql` 안의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 `seed_chapter1.sql` ~ `seed_chapter8_*.sql`까지 8개 단원(기본 트랙) + `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`/`seed_corrosion_advanced.sql`(심화 트랙 3개 단원) 콘텐츠가 별도로 실행되어 있습니다. 즉 `schema.sql`만 보고 새 환경(예: 스테이징)을 구축하면 5개 단원이 빠지고, `migration_add_chapter_track.sql`도 별도로 실행해야 `track` 컬럼이 생깁니다.
+- **시드 파일 현황**: `seed_chapter1.sql`은 구버전, `seed_chapter1_v2.sql`이 최종본입니다(1단원은 v2만 실행하면 됨). 나머지는 챕터당 파일 하나씩. `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`/`seed_corrosion_advanced.sql`은 `track='advanced'`로 삽입되는 심화과정 챕터입니다(`부식과 방식 (심화)`은 `산화-환원과 전기화학` 단원과 레슨 본문 링크로 연계됨).
 
 ## 3. 콘텐츠 발행 워크플로우
 
@@ -84,7 +84,7 @@
 | 경로 | 내용 |
 |---|---|
 | `/` | 홈 — 통계, 단원 미리보기, 이어서 학습하기 |
-| `/chapters`, `/chapters/[id]` | 단원 목록/상세 — 목록은 "기본 과정"(`track='basic'`, 8단원)과 "🔬 심화과정"(`track='advanced'`, 2단원: 양자역학의 기본 개념/오비탈) 두 섹션으로 분리 표시 |
+| `/chapters`, `/chapters/[id]` | 단원 목록/상세 — 목록은 "기본 과정"(`track='basic'`, 8단원)과 "🔬 심화과정"(`track='advanced'`, 3단원: 양자역학의 기본 개념/오비탈/부식과 방식) 두 섹션으로 분리 표시 |
 | `/chapters/[id]/lessons/[id]` | 레슨 본문 (개념/공식/예제/비유) |
 | `/chapters/[id]/lessons/[id]/quiz` | 퀴즈 |
 | `/login`, `/signup` | 로그인/회원가입 |

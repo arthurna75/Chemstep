@@ -254,9 +254,9 @@
       </div>
       <div class="warn">
         <strong>⚠ schema.sql이 실제 DB 상태와 불일치</strong>
-        <code>schema.sql</code>의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 <code>seed_chapter1.sql</code> ~ <code>seed_chapter8_*.sql</code>까지 8개 단원(기본 트랙) + <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>(심화 트랙 2개 단원) 콘텐츠가 별도 실행되어 있습니다. <code>schema.sql</code>만으로 새 환경을 구축하면 5개 단원이 빠지고, <code>migration_add_chapter_track.sql</code>도 별도 실행해야 <code>track</code> 컬럼이 생깁니다.
+        <code>schema.sql</code>의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 <code>seed_chapter1.sql</code> ~ <code>seed_chapter8_*.sql</code>까지 8개 단원(기본 트랙) + <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>/<code>seed_corrosion_advanced.sql</code>(심화 트랙 3개 단원) 콘텐츠가 별도 실행되어 있습니다. <code>schema.sql</code>만으로 새 환경을 구축하면 5개 단원이 빠지고, <code>migration_add_chapter_track.sql</code>도 별도 실행해야 <code>track</code> 컬럼이 생깁니다.
       </div>
-      <p><strong>시드 파일 현황</strong>: <code>seed_chapter1.sql</code>은 구버전, <code>seed_chapter1_v2.sql</code>이 최종본(1단원은 v2만 실행). 나머지는 챕터당 파일 하나씩. <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>은 <code>track='advanced'</code>로 삽입되는 심화과정 챕터입니다.</p>
+      <p><strong>시드 파일 현황</strong>: <code>seed_chapter1.sql</code>은 구버전, <code>seed_chapter1_v2.sql</code>이 최종본(1단원은 v2만 실행). 나머지는 챕터당 파일 하나씩. <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>/<code>seed_corrosion_advanced.sql</code>은 <code>track='advanced'</code>로 삽입되는 심화과정 챕터입니다(<code>부식과 방식 (심화)</code>은 <code>산화-환원과 전기화학</code> 단원과 레슨 본문 링크로 연계됨).</p>
     </section>
 
     <section id="content">
@@ -320,7 +320,7 @@
         <thead><tr><th>경로</th><th>내용</th></tr></thead>
         <tbody>
           <tr><td><code>/</code></td><td>홈 — 통계, 단원 미리보기, 이어서 학습하기</td></tr>
-          <tr><td><code>/chapters</code>, <code>/chapters/[id]</code></td><td>단원 목록/상세 — 목록은 "기본 과정"(<code>track='basic'</code>, 8단원)과 "🔬 심화과정"(<code>track='advanced'</code>, 2단원: 양자역학의 기본 개념/오비탈) 두 섹션으로 분리 표시</td></tr>
+          <tr><td><code>/chapters</code>, <code>/chapters/[id]</code></td><td>단원 목록/상세 — 목록은 "기본 과정"(<code>track='basic'</code>, 8단원)과 "🔬 심화과정"(<code>track='advanced'</code>, 3단원: 양자역학의 기본 개념/오비탈/부식과 방식) 두 섹션으로 분리 표시</td></tr>
           <tr><td><code>/chapters/[id]/lessons/[id]</code></td><td>레슨 본문 (개념/공식/예제/비유)</td></tr>
           <tr><td><code>/chapters/[id]/lessons/[id]/quiz</code></td><td>퀴즈</td></tr>
           <tr><td><code>/login</code>, <code>/signup</code></td><td>로그인/회원가입</td></tr>

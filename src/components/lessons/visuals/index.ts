@@ -41,6 +41,11 @@ import Lesson2OrbitalShapesVisuals from './orbitals/Lesson2OrbitalShapesVisuals'
 import Lesson3OrbitalEnergyVisuals from './orbitals/Lesson3OrbitalEnergyVisuals'
 import Lesson4ElectronConfigVisuals from './orbitals/Lesson4ElectronConfigVisuals'
 import Lesson5PeriodicBondBridgeVisuals from './orbitals/Lesson5PeriodicBondBridgeVisuals'
+import Lesson1CorrosionBasicsVisuals from './corrosion/Lesson1CorrosionBasicsVisuals'
+import Lesson2GalvanicSeriesVisuals from './corrosion/Lesson2GalvanicSeriesVisuals'
+import Lesson3EnvironmentalFactorsVisuals from './corrosion/Lesson3EnvironmentalFactorsVisuals'
+import Lesson4ProtectionMethodsVisuals from './corrosion/Lesson4ProtectionMethodsVisuals'
+import Lesson5CathodicProtectionVisuals from './corrosion/Lesson5CathodicProtectionVisuals'
 
 export const LESSON_VISUALS: Record<string, ComponentType> = {
   // Chapter 1: 원자 구조
@@ -95,4 +100,10 @@ export const LESSON_VISUALS: Record<string, ComponentType> = {
   'd, f 오비탈과 오비탈의 에너지 준위': Lesson3OrbitalEnergyVisuals,
   '쌓음 원리와 훈트 규칙': Lesson4ElectronConfigVisuals,
   '오비탈에서 주기율표와 화학 결합으로': Lesson5PeriodicBondBridgeVisuals,
+  // 심화과정 C: 부식과 방식 (심화)
+  '부식이란? — 금속의 전기화학적 손상': Lesson1CorrosionBasicsVisuals,
+  '갈바니 부식과 이종 금속 접촉': Lesson2GalvanicSeriesVisuals,
+  '부식에 영향을 미치는 환경 요인': Lesson3EnvironmentalFactorsVisuals,
+  '부식 방지 — 피막과 도금': Lesson4ProtectionMethodsVisuals,
+  '전기화학적 방식 — 음극 방식법과 산업 응용': Lesson5CathodicProtectionVisuals,
 }

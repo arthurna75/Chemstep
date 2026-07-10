@@ -49,6 +49,11 @@ import SPOrbitalShapeDiagram from './SPOrbitalShapeDiagram'
 import OrbitalEnergyLevelDiagram from './OrbitalEnergyLevelDiagram'
 import AufbauHundDiagram from './AufbauHundDiagram'
 import OrbitalPeriodicBridgeDiagram from './OrbitalPeriodicBridgeDiagram'
+import RustFormationDiagram from './RustFormationDiagram'
+import GalvanicCorrosionDiagram from './GalvanicCorrosionDiagram'
+import DifferentialAerationDiagram from './DifferentialAerationDiagram'
+import GalvanizingProtectionDiagram from './GalvanizingProtectionDiagram'
+import CathodicProtectionDiagram from './CathodicProtectionDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -109,4 +114,10 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   'd, f 오비탈과 오비탈의 에너지 준위': OrbitalEnergyLevelDiagram,
   '쌓음 원리와 훈트 규칙': AufbauHundDiagram,
   '오비탈에서 주기율표와 화학 결합으로': OrbitalPeriodicBridgeDiagram,
+  // 심화과정 C: 부식과 방식 (심화)
+  '부식이란? — 금속의 전기화학적 손상': RustFormationDiagram,
+  '갈바니 부식과 이종 금속 접촉': GalvanicCorrosionDiagram,
+  '부식에 영향을 미치는 환경 요인': DifferentialAerationDiagram,
+  '부식 방지 — 피막과 도금': GalvanizingProtectionDiagram,
+  '전기화학적 방식 — 음극 방식법과 산업 응용': CathodicProtectionDiagram,
 }
