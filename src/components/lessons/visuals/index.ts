@@ -46,6 +46,11 @@ import Lesson2GalvanicSeriesVisuals from './corrosion/Lesson2GalvanicSeriesVisua
 import Lesson3EnvironmentalFactorsVisuals from './corrosion/Lesson3EnvironmentalFactorsVisuals'
 import Lesson4ProtectionMethodsVisuals from './corrosion/Lesson4ProtectionMethodsVisuals'
 import Lesson5CathodicProtectionVisuals from './corrosion/Lesson5CathodicProtectionVisuals'
+import Lesson1SemiconductorBasicsVisuals from './semiconductor/Lesson1SemiconductorBasicsVisuals'
+import Lesson2WaferProcessVisuals from './semiconductor/Lesson2WaferProcessVisuals'
+import Lesson3CVDALDVisuals from './semiconductor/Lesson3CVDALDVisuals'
+import Lesson4LCDOLEDVisuals from './semiconductor/Lesson4LCDOLEDVisuals'
+import Lesson5DisplayDegradationVisuals from './semiconductor/Lesson5DisplayDegradationVisuals'
 
 export const LESSON_VISUALS: Record<string, ComponentType> = {
   // Chapter 1: 원자 구조
@@ -106,4 +111,10 @@ export const LESSON_VISUALS: Record<string, ComponentType> = {
   '부식에 영향을 미치는 환경 요인': Lesson3EnvironmentalFactorsVisuals,
   '부식 방지 — 피막과 도금': Lesson4ProtectionMethodsVisuals,
   '전기화학적 방식 — 음극 방식법과 산업 응용': Lesson5CathodicProtectionVisuals,
+  // 심화과정 D: 반도체와 디스플레이 화학 (심화)
+  '반도체의 화학적 원리': Lesson1SemiconductorBasicsVisuals,
+  '반도체 소자 제작 공정 화학': Lesson2WaferProcessVisuals,
+  '박막 증착 화학: CVD와 ALD': Lesson3CVDALDVisuals,
+  '디스플레이의 화학: LCD와 OLED': Lesson4LCDOLEDVisuals,
+  '디스플레이 소재의 열화와 최신 화학 트렌드': Lesson5DisplayDegradationVisuals,
 }

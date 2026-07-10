@@ -54,6 +54,11 @@ import GalvanicCorrosionDiagram from './GalvanicCorrosionDiagram'
 import DifferentialAerationDiagram from './DifferentialAerationDiagram'
 import GalvanizingProtectionDiagram from './GalvanizingProtectionDiagram'
 import CathodicProtectionDiagram from './CathodicProtectionDiagram'
+import BandGapDopingDiagram from './BandGapDopingDiagram'
+import WaferFabricationDiagram from './WaferFabricationDiagram'
+import CVDALDDiagram from './CVDALDDiagram'
+import LCDOLEDStructureDiagram from './LCDOLEDStructureDiagram'
+import OLEDEncapsulationDiagram from './OLEDEncapsulationDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -120,4 +125,10 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '부식에 영향을 미치는 환경 요인': DifferentialAerationDiagram,
   '부식 방지 — 피막과 도금': GalvanizingProtectionDiagram,
   '전기화학적 방식 — 음극 방식법과 산업 응용': CathodicProtectionDiagram,
+  // 심화과정 D: 반도체와 디스플레이 화학 (심화)
+  '반도체의 화학적 원리': BandGapDopingDiagram,
+  '반도체 소자 제작 공정 화학': WaferFabricationDiagram,
+  '박막 증착 화학: CVD와 ALD': CVDALDDiagram,
+  '디스플레이의 화학: LCD와 OLED': LCDOLEDStructureDiagram,
+  '디스플레이 소재의 열화와 최신 화학 트렌드': OLEDEncapsulationDiagram,
 }
