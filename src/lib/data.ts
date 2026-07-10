@@ -24,6 +24,35 @@ export async function getChapterById(id: string): Promise<Chapter | null> {
   return data
 }
 
+export async function getChapterByTitle(title: string): Promise<Chapter | null> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('chapters')
+    .select('*')
+    .eq('title', title)
+    .single()
+  if (error) return null
+  return data
+}
+
+export async function getLessonByChapterTitleAndOrder(
+  chapterTitle: string,
+  orderIndex: number
+): Promise<{ chapterId: string; lessonId: string } | null> {
+  const chapter = await getChapterByTitle(chapterTitle)
+  if (!chapter) return null
+
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('lessons')
+    .select('id')
+    .eq('chapter_id', chapter.id)
+    .eq('order_index', orderIndex)
+    .single()
+  if (error || !data) return null
+  return { chapterId: chapter.id, lessonId: data.id }
+}
+
 export async function getLessonsByChapterId(chapterId: string): Promise<Lesson[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
