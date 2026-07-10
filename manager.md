@@ -24,13 +24,13 @@
 
 ## 2. 데이터베이스 관리
 
-**테이블 구조** (`supabase/schema.sql`): `chapters` → `lessons` → `quizzes` → `quiz_options` (콘텐츠, 전체 공개 읽기), `user_progress` / `user_answers` (본인 데이터만 접근), `guest_codes` (게스트 조회 코드).
+**테이블 구조** (`supabase/schema.sql`): `chapters`(`track` 컬럼으로 `basic`/`advanced` 구분, 기본값 `basic`) → `lessons` → `quizzes` → `quiz_options` (콘텐츠, 전체 공개 읽기), `user_progress` / `user_answers` (본인 데이터만 접근), `guest_codes` (게스트 조회 코드).
 
 **RLS(Row Level Security)**: 모든 테이블에서 활성화되어 있습니다. 콘텐츠 테이블은 누구나 읽기 가능, 진행상황/응답 테이블은 `auth.uid() = user_id`로 본인 것만 접근 가능하도록 정책이 걸려 있습니다.
 
-- [ ] **리스크 — 마이그레이션 추적 없음**: `supabase/` 안에 마이그레이션 폴더가 없습니다. 스키마를 바꾸면 `schema.sql`을 수정한 뒤 Supabase SQL Editor에 수동으로 붙여넣어 실행해야 하고, "지금 운영 DB에 무엇이 실제로 반영돼 있는지"를 추적할 방법이 없습니다. 스키마를 바꿀 때마다 `schema.sql`도 같이 갱신하는 습관이 유일한 안전장치입니다.
-- [ ] **리스크 — `schema.sql`이 실제 DB 상태와 불일치**: `schema.sql` 안의 시드 INSERT는 5개 단원만 넣지만, 실제로는 `seed_chapter1.sql` ~ `seed_chapter8_*.sql`까지 8개 단원 콘텐츠가 별도로 실행되어 있습니다. 즉 `schema.sql`만 보고 새 환경(예: 스테이징)을 구축하면 3개 단원이 빠집니다.
-- **시드 파일 현황**: `seed_chapter1.sql`은 구버전, `seed_chapter1_v2.sql`이 최종본입니다(1단원은 v2만 실행하면 됨). 나머지는 챕터당 파일 하나씩.
+- [ ] **리스크 — 마이그레이션 추적 없음**: `supabase/` 안에 정식 마이그레이션 폴더/툴이 없습니다. 스키마를 바꾸면 `schema.sql`을 수정하는 것과 별개로, 이미 존재하는 운영 DB에는 `supabase/migration_*.sql` 형태의 파일을 만들어 Supabase SQL Editor에 수동으로 실행해야 반영됩니다(예: `migration_add_chapter_track.sql`). "지금 운영 DB에 무엇이 실제로 반영돼 있는지"를 추적할 방법이 없어, 스키마를 바꿀 때마다 `schema.sql`+마이그레이션 파일을 함께 남기는 습관이 유일한 안전장치입니다.
+- [ ] **리스크 — `schema.sql`이 실제 DB 상태와 불일치**: `schema.sql` 안의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 `seed_chapter1.sql` ~ `seed_chapter8_*.sql`까지 8개 단원(기본 트랙) + `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`(심화 트랙 2개 단원) 콘텐츠가 별도로 실행되어 있습니다. 즉 `schema.sql`만 보고 새 환경(예: 스테이징)을 구축하면 5개 단원이 빠지고, `migration_add_chapter_track.sql`도 별도로 실행해야 `track` 컬럼이 생깁니다.
+- **시드 파일 현황**: `seed_chapter1.sql`은 구버전, `seed_chapter1_v2.sql`이 최종본입니다(1단원은 v2만 실행하면 됨). 나머지는 챕터당 파일 하나씩. `seed_quantum_mechanics_basics.sql`/`seed_orbitals_advanced.sql`은 `track='advanced'`로 삽입되는 심화과정 챕터입니다.
 
 ## 3. 콘텐츠 발행 워크플로우
 
@@ -45,6 +45,8 @@
 - [ ] 7. `npm run build` 통과 확인
 - [ ] 8. `git commit && git push` (→ Vercel 자동 배포)
 - [ ] 9. **Supabase SQL Editor에 `seed_<슬러그>.sql` 내용을 직접 붙여넣어 실행** — 이 단계를 빠뜨리면 코드는 배포됐는데 콘텐츠는 안 보이는 상태가 됩니다.
+
+**심화 트랙(`track='advanced'`) 챕터를 추가할 때**: `/new-chapter` 스킬은 기본적으로 `track='basic'` 챕터 하나를 새로 만드는 절차입니다. 심화 챕터는 `chapters` INSERT에 `track='advanced'`를 명시하고, `order_index`는 심화 트랙 내에서만 유일하면 됩니다(기본 트랙 번호와 별개 네임스페이스). `getChapters()`/`getNextLessonForUser`/전체 진행률(`buildProgressSummary`)은 기본 트랙(`track='basic'`)만 집계하므로, 심화 챕터를 추가해도 홈의 "이어서 학습하기"나 전체 진행률 %에는 영향을 주지 않습니다 — `/chapters` 페이지의 별도 "🔬 심화과정" 섹션에서만 노출됩니다.
 
 ### 본문(`content`) 마크업 문법 치트시트
 
@@ -82,7 +84,7 @@
 | 경로 | 내용 |
 |---|---|
 | `/` | 홈 — 통계, 단원 미리보기, 이어서 학습하기 |
-| `/chapters`, `/chapters/[id]` | 단원 목록/상세 |
+| `/chapters`, `/chapters/[id]` | 단원 목록/상세 — 목록은 "기본 과정"(`track='basic'`, 8단원)과 "🔬 심화과정"(`track='advanced'`, 2단원: 양자역학의 기본 개념/오비탈) 두 섹션으로 분리 표시 |
 | `/chapters/[id]/lessons/[id]` | 레슨 본문 (개념/공식/예제/비유) |
 | `/chapters/[id]/lessons/[id]/quiz` | 퀴즈 |
 | `/login`, `/signup` | 로그인/회원가입 |
@@ -96,6 +98,7 @@
 - [ ] CI/테스트/린트 자동 게이트 없음 — push 즉시 배포 (섹션 5)
 - [ ] 콘텐츠 발행에 관리자 UI 없음 — SQL Editor 수동 실행이 유일한 경로 (섹션 3)
 - [ ] `README.md`가 아직 `create-next-app` 기본 문구 그대로임 — 신규 협업자 온보딩 시 이 `manager.md`를 대신 참고하도록 안내 필요
+- [ ] 심화 트랙(`track='advanced'`) 레슨 완료는 `user_progress`에 기록되지만, 홈의 전체 진행률 %와 "이어서 학습하기"는 기본 트랙만 집계합니다(의도된 범위 제한). 심화 트랙용 별도 진행률 UI가 필요해지면 `buildProgressSummary`/`ChaptersPage`를 확장해야 합니다.
 
 ## 8. 정기 점검 체크리스트
 

@@ -7,6 +7,7 @@ create table if not exists chapters (
   description  text,
   icon         text,
   order_index  int  not null,
+  track        text not null default 'basic' check (track in ('basic', 'advanced')),
   created_at   timestamptz default now()
 );
 

@@ -19,7 +19,14 @@ export default function ChapterCard({ chapter, lessonCount, completedCount }: Pr
         <span className="text-3xl">{chapter.icon ?? '📚'}</span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
-            <h3 className="font-semibold text-gray-900">{chapter.title}</h3>
+            <div className="flex items-center gap-2">
+              <h3 className="font-semibold text-gray-900">{chapter.title}</h3>
+              {chapter.track === 'advanced' && (
+                <span className="text-[11px] font-medium text-purple-700 bg-purple-100 rounded-full px-2 py-0.5">
+                  심화
+                </span>
+              )}
+            </div>
             <span className="text-xs text-gray-500">{completedCount}/{lessonCount}</span>
           </div>
           {chapter.description && (

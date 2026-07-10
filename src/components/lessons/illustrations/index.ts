@@ -39,6 +39,16 @@ import CombustionComparisonDiagram from './CombustionComparisonDiagram'
 import BondEnergyDiagram from './BondEnergyDiagram'
 import CombustionEfficiencyDiagram from './CombustionEfficiencyDiagram'
 import FireTriangleDiagram from './FireTriangleDiagram'
+import BohrLimitationDiagram from './BohrLimitationDiagram'
+import WaveParticleDualityDiagram from './WaveParticleDualityDiagram'
+import UncertaintyPrincipleDiagram from './UncertaintyPrincipleDiagram'
+import WaveFunctionDiagram from './WaveFunctionDiagram'
+import QuantumNumbersDiagram from './QuantumNumbersDiagram'
+import ElectronCloudDiagram from './ElectronCloudDiagram'
+import SPOrbitalShapeDiagram from './SPOrbitalShapeDiagram'
+import OrbitalEnergyLevelDiagram from './OrbitalEnergyLevelDiagram'
+import AufbauHundDiagram from './AufbauHundDiagram'
+import OrbitalPeriodicBridgeDiagram from './OrbitalPeriodicBridgeDiagram'
 
 export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '원자의 구성 입자': AtomParticlesDiagram,
@@ -87,4 +97,16 @@ export const LESSON_ILLUSTRATIONS: Record<string, ComponentType> = {
   '연소 반응의 화학량론': CombustionComparisonDiagram,
   '연소 효율과 발열량 계산': CombustionEfficiencyDiagram,
   '반응 속도와 연소 제어': FireTriangleDiagram,
+  // 심화과정 A: 양자역학의 기본 개념 (심화)
+  '보어 모형의 한계': BohrLimitationDiagram,
+  '빛과 전자의 이중성': WaveParticleDualityDiagram,
+  '하이젠베르크 불확정성 원리': UncertaintyPrincipleDiagram,
+  '슈뢰딩거 방정식과 파동함수': WaveFunctionDiagram,
+  '양자수와 오비탈로 가는 다리': QuantumNumbersDiagram,
+  // 심화과정 B: 오비탈 (심화)
+  '전자 구름 모형과 오비탈': ElectronCloudDiagram,
+  's 오비탈과 p 오비탈의 모양': SPOrbitalShapeDiagram,
+  'd, f 오비탈과 오비탈의 에너지 준위': OrbitalEnergyLevelDiagram,
+  '쌓음 원리와 훈트 규칙': AufbauHundDiagram,
+  '오비탈에서 주기율표와 화학 결합으로': OrbitalPeriodicBridgeDiagram,
 }

@@ -247,16 +247,16 @@
 
     <section id="db">
       <h2><span class="num">2</span> 데이터베이스 관리</h2>
-      <p><code>supabase/schema.sql</code> 기준 — <code>chapters</code> → <code>lessons</code> → <code>quizzes</code> → <code>quiz_options</code>(콘텐츠, 전체 공개 읽기), <code>user_progress</code> / <code>user_answers</code>(본인 데이터만 접근), <code>guest_codes</code>(게스트 조회 코드). 모든 테이블에 RLS가 활성화되어 있습니다.</p>
+      <p><code>supabase/schema.sql</code> 기준 — <code>chapters</code>(<code>track</code> 컬럼으로 <code>basic</code>/<code>advanced</code> 구분, 기본값 <code>basic</code>) → <code>lessons</code> → <code>quizzes</code> → <code>quiz_options</code>(콘텐츠, 전체 공개 읽기), <code>user_progress</code> / <code>user_answers</code>(본인 데이터만 접근), <code>guest_codes</code>(게스트 조회 코드). 모든 테이블에 RLS가 활성화되어 있습니다.</p>
       <div class="warn">
         <strong>⚠ 마이그레이션 추적 없음</strong>
-        <code>supabase/</code> 안에 마이그레이션 폴더가 없습니다. 스키마를 바꾸면 <code>schema.sql</code>을 수정한 뒤 Supabase SQL Editor에 수동으로 붙여넣어 실행해야 하고, 운영 DB에 무엇이 실제로 반영돼 있는지 추적할 방법이 없습니다.
+        <code>supabase/</code> 안에 정식 마이그레이션 폴더/툴이 없습니다. 스키마를 바꾸면 <code>schema.sql</code> 수정과 별개로, 이미 존재하는 운영 DB에는 <code>supabase/migration_*.sql</code> 파일(예: <code>migration_add_chapter_track.sql</code>)을 만들어 Supabase SQL Editor에서 수동 실행해야 반영됩니다. 운영 DB에 무엇이 실제로 반영돼 있는지 추적할 방법이 없습니다.
       </div>
       <div class="warn">
         <strong>⚠ schema.sql이 실제 DB 상태와 불일치</strong>
-        <code>schema.sql</code>의 시드 INSERT는 5개 단원만 넣지만, 실제로는 <code>seed_chapter1.sql</code> ~ <code>seed_chapter8_*.sql</code>까지 8개 단원 콘텐츠가 별도 실행되어 있습니다. <code>schema.sql</code>만으로 새 환경을 구축하면 3개 단원이 빠집니다.
+        <code>schema.sql</code>의 시드 INSERT는 기본 트랙 5개 단원만 넣지만, 실제로는 <code>seed_chapter1.sql</code> ~ <code>seed_chapter8_*.sql</code>까지 8개 단원(기본 트랙) + <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>(심화 트랙 2개 단원) 콘텐츠가 별도 실행되어 있습니다. <code>schema.sql</code>만으로 새 환경을 구축하면 5개 단원이 빠지고, <code>migration_add_chapter_track.sql</code>도 별도 실행해야 <code>track</code> 컬럼이 생깁니다.
       </div>
-      <p><strong>시드 파일 현황</strong>: <code>seed_chapter1.sql</code>은 구버전, <code>seed_chapter1_v2.sql</code>이 최종본(1단원은 v2만 실행). 나머지는 챕터당 파일 하나씩.</p>
+      <p><strong>시드 파일 현황</strong>: <code>seed_chapter1.sql</code>은 구버전, <code>seed_chapter1_v2.sql</code>이 최종본(1단원은 v2만 실행). 나머지는 챕터당 파일 하나씩. <code>seed_quantum_mechanics_basics.sql</code>/<code>seed_orbitals_advanced.sql</code>은 <code>track='advanced'</code>로 삽입되는 심화과정 챕터입니다.</p>
     </section>
 
     <section id="content">
@@ -273,6 +273,7 @@
         <li><code>git commit &amp;&amp; git push</code> (→ Vercel 자동 배포)</li>
         <li><strong>Supabase SQL Editor에 seed SQL을 직접 붙여넣어 실행</strong> — 빠뜨리면 코드는 배포됐는데 콘텐츠는 안 보임</li>
       </ol>
+      <p><strong>심화 트랙(<code>track='advanced'</code>) 챕터 추가 시</strong>: <code>/new-chapter</code> 스킬은 기본적으로 <code>track='basic'</code> 챕터를 만드는 절차입니다. 심화 챕터는 <code>chapters</code> INSERT에 <code>track='advanced'</code>를 명시하고, <code>order_index</code>는 심화 트랙 안에서만 유일하면 됩니다. 홈의 "이어서 학습하기"와 전체 진행률 %는 기본 트랙만 집계하므로 심화 챕터를 추가해도 영향이 없고, <code>/chapters</code> 페이지의 별도 "🔬 심화과정" 섹션에서만 노출됩니다.</p>
       <h3>본문(content) 마크업 문법 치트시트</h3>
       <table>
         <thead><tr><th>문법</th><th>결과</th></tr></thead>
@@ -319,7 +320,7 @@
         <thead><tr><th>경로</th><th>내용</th></tr></thead>
         <tbody>
           <tr><td><code>/</code></td><td>홈 — 통계, 단원 미리보기, 이어서 학습하기</td></tr>
-          <tr><td><code>/chapters</code>, <code>/chapters/[id]</code></td><td>단원 목록/상세</td></tr>
+          <tr><td><code>/chapters</code>, <code>/chapters/[id]</code></td><td>단원 목록/상세 — 목록은 "기본 과정"(<code>track='basic'</code>, 8단원)과 "🔬 심화과정"(<code>track='advanced'</code>, 2단원: 양자역학의 기본 개념/오비탈) 두 섹션으로 분리 표시</td></tr>
           <tr><td><code>/chapters/[id]/lessons/[id]</code></td><td>레슨 본문 (개념/공식/예제/비유)</td></tr>
           <tr><td><code>/chapters/[id]/lessons/[id]/quiz</code></td><td>퀴즈</td></tr>
           <tr><td><code>/login</code>, <code>/signup</code></td><td>로그인/회원가입</td></tr>
@@ -337,6 +338,7 @@
         <li><input type="checkbox" /> CI/테스트/린트 자동 게이트 없음 — push 즉시 배포 (섹션 5)</li>
         <li><input type="checkbox" /> 콘텐츠 발행에 관리자 UI 없음 — SQL Editor 수동 실행이 유일한 경로 (섹션 3)</li>
         <li><input type="checkbox" /> <code>README.md</code>가 아직 create-next-app 기본 문구 그대로 — 신규 협업자는 이 문서를 대신 참고</li>
+        <li><input type="checkbox" /> 심화 트랙(<code>track='advanced'</code>) 레슨 완료는 <code>user_progress</code>에 기록되지만, 홈의 전체 진행률 %와 "이어서 학습하기"는 기본 트랙만 집계 (의도된 범위 제한 — 별도 UI 필요 시 <code>buildProgressSummary</code>/<code>ChaptersPage</code> 확장 필요)</li>
       </ul>
     </section>
 

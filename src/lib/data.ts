@@ -3,13 +3,12 @@ import type { User } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import type { Chapter, Lesson, QuizWithOptions } from '@/types'
 
-export async function getChapters(): Promise<Chapter[]> {
+export async function getChapters(track?: 'basic' | 'advanced'): Promise<Chapter[]> {
   const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('chapters')
-    .select('*')
-    .order('order_index')
-if (error) throw new Error(error.message)
+  let query = supabase.from('chapters').select('*').order('order_index')
+  if (track) query = query.eq('track', track)
+  const { data, error } = await query
+  if (error) throw new Error(error.message)
   return data ?? []
 }
 
@@ -117,7 +116,7 @@ export const getCurrentUser = cache(async (): Promise<User | null> => {
 export async function getNextLessonForUser(
   userId: string | null
 ): Promise<{ chapterId: string; lessonId: string } | null> {
-  const chapters = await getChapters()
+  const chapters = await getChapters('basic')
   if (chapters.length === 0) return null
 
   const lessonsByChapter = await Promise.all(
@@ -163,7 +162,7 @@ async function buildProgressSummary(
   completedLessonIds: Set<string>,
   correctAnswers: number
 ): Promise<ProgressSummary> {
-  const chapters = await getChapters()
+  const chapters = await getChapters('basic')
   const lessonsByChapter = await Promise.all(
     chapters.map(chapter => getLessonsByChapterId(chapter.id))
   )

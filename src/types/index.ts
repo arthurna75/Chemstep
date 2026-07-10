@@ -4,6 +4,7 @@ export interface Chapter {
   description: string | null
   icon: string | null
   order_index: number
+  track: 'basic' | 'advanced'
   created_at: string
 }
 

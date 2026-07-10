@@ -34,6 +34,12 @@ import Lesson2BondEnergyVisuals from './thermo/Lesson2BondEnergyVisuals'
 import Lesson3CombustionStoichiometryVisuals from './thermo/Lesson3CombustionStoichiometryVisuals'
 import Lesson4CombustionEfficiencyVisuals from './thermo/Lesson4CombustionEfficiencyVisuals'
 import Lesson5CombustionControlVisuals from './thermo/Lesson5CombustionControlVisuals'
+import Lesson1BohrComparisonVisuals from './quantum/Lesson1BohrComparisonVisuals'
+import Lesson5QuantumNumbersVisuals from './quantum/Lesson5QuantumNumbersVisuals'
+import Lesson2OrbitalShapesVisuals from './orbitals/Lesson2OrbitalShapesVisuals'
+import Lesson3OrbitalEnergyVisuals from './orbitals/Lesson3OrbitalEnergyVisuals'
+import Lesson4ElectronConfigVisuals from './orbitals/Lesson4ElectronConfigVisuals'
+import Lesson5PeriodicBondBridgeVisuals from './orbitals/Lesson5PeriodicBondBridgeVisuals'
 
 export const LESSON_VISUALS: Record<string, ComponentType> = {
   // Chapter 2: 주기율표
@@ -78,4 +84,12 @@ export const LESSON_VISUALS: Record<string, ComponentType> = {
   '연소 반응의 화학량론': Lesson3CombustionStoichiometryVisuals,
   '연소 효율과 발열량 계산': Lesson4CombustionEfficiencyVisuals,
   '반응 속도와 연소 제어': Lesson5CombustionControlVisuals,
+  // 심화과정 A: 양자역학의 기본 개념 (심화)
+  '보어 모형의 한계': Lesson1BohrComparisonVisuals,
+  '양자수와 오비탈로 가는 다리': Lesson5QuantumNumbersVisuals,
+  // 심화과정 B: 오비탈 (심화)
+  's 오비탈과 p 오비탈의 모양': Lesson2OrbitalShapesVisuals,
+  'd, f 오비탈과 오비탈의 에너지 준위': Lesson3OrbitalEnergyVisuals,
+  '쌓음 원리와 훈트 규칙': Lesson4ElectronConfigVisuals,
+  '오비탈에서 주기율표와 화학 결합으로': Lesson5PeriodicBondBridgeVisuals,
 }
