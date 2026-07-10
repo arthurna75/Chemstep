@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react'
+import Lesson4ElectronConfigVisualsAtomic from './atomic/Lesson4ElectronConfigVisuals'
 import Lesson1PeriodicHistoryVisuals from './periodic/Lesson1PeriodicHistoryVisuals'
 import Lesson2PeriodGroupVisuals from './periodic/Lesson2PeriodGroupVisuals'
 import Lesson3ClassificationVisuals from './periodic/Lesson3ClassificationVisuals'
@@ -42,6 +43,8 @@ import Lesson4ElectronConfigVisuals from './orbitals/Lesson4ElectronConfigVisual
 import Lesson5PeriodicBondBridgeVisuals from './orbitals/Lesson5PeriodicBondBridgeVisuals'
 
 export const LESSON_VISUALS: Record<string, ComponentType> = {
+  // Chapter 1: 원자 구조
+  '전자 배치': Lesson4ElectronConfigVisualsAtomic,
   // Chapter 2: 주기율표
   '주기율표의 발전': Lesson1PeriodicHistoryVisuals,
   '주기와 족': Lesson2PeriodGroupVisuals,
