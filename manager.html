@@ -307,6 +307,10 @@
         <li><input type="checkbox" /> push 전에 로컬에서 <code>npm run build</code>(타입 에러 확인) 실행</li>
         <li><input type="checkbox" /> push 전에 <code>npm run lint</code> 실행</li>
       </ul>
+      <div class="warn">
+        <strong>ℹ AI 작업 정책 (AGENTS.md)</strong>
+        Claude가 코드/문서를 변경하면 별도 요청 없이도 관련 문서 갱신 → <code>npm run build</code> 검증 → 커밋 → <code>main</code> push(배포)까지 기본으로 수행합니다. 특정 변경만 커밋해두고 배포는 미루고 싶다면 그때그때 명시적으로 범위를 좁혀 요청해야 합니다.
+      </div>
     </section>
 
     <section id="features">
