@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chemstep 관리 문서</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --panel: #ffffff;
+    --text: #1a1d24;
+    --text-dim: #5b6270;
+    --border: #e4e7ec;
+    --accent: #2563eb;
+    --accent-soft: #eef2ff;
+    --warn-bg: #fff7ed;
+    --warn-border: #fdba74;
+    --warn-text: #9a3412;
+    --code-bg: #f1f3f6;
+    --shadow: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14161c;
+      --panel: #1c1f28;
+      --text: #e7e9ee;
+      --text-dim: #9aa1b1;
+      --border: #2b2f3a;
+      --accent: #60a5fa;
+      --accent-soft: #1e2740;
+      --warn-bg: #2b1d10;
+      --warn-border: #9a5b23;
+      --warn-text: #fdba74;
+      --code-bg: #23262f;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    background: var(--code-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: 1120px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 16px;
+    border-right: 1px solid var(--border);
+  }
+  nav .brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0 12px 16px;
+    color: var(--text);
+  }
+  nav .brand span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  nav ul { list-style: none; margin: 0; padding: 0; }
+  nav li a {
+    display: block;
+    padding: 7px 12px;
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  nav li a:hover { background: var(--accent-soft); color: var(--text); text-decoration: none; }
+  main { padding: 40px 48px 96px; min-width: 0; }
+  header.hero {
+    margin-bottom: 32px;
+  }
+  header.hero h1 { font-size: 1.6rem; margin: 0 0 6px; }
+  header.hero p { color: var(--text-dim); margin: 0; max-width: 640px; }
+  .stack-badges { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .badge {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 20px;
+  }
+  section h2 {
+    font-size: 1.15rem;
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2 .num {
+    color: var(--text-dim);
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+  section h3 { font-size: 0.95rem; margin: 20px 0 8px; color: var(--text); }
+  section > p:first-of-type { color: var(--text-dim); margin-top: 4px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th { color: var(--text-dim); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.02em; }
+  .checklist { list-style: none; margin: 12px 0; padding: 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.92rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .steps { list-style: none; margin: 12px 0; padding: 0; counter-reset: step; }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 0.92rem;
+    border-bottom: 1px dashed var(--border);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .warn {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    color: var(--warn-text);
+  }
+  .warn strong { display: block; margin-bottom: 2px; }
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    padding: 24px;
+  }
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    nav { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    main { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav>
+    <div class="brand">Chemstep<span>관리 문서</span></div>
+    <ul>
+      <li><a href="#overview">0. 한눈에 보기</a></li>
+      <li><a href="#env">1. 환경변수</a></li>
+      <li><a href="#db">2. 데이터베이스</a></li>
+      <li><a href="#content">3. 콘텐츠 발행</a></li>
+      <li><a href="#auth">4. 인증 · 게스트코드</a></li>
+      <li><a href="#deploy">5. 배포 파이프라인</a></li>
+      <li><a href="#features">6. 기능 인벤토리</a></li>
+      <li><a href="#risks">7. 알려진 리스크</a></li>
+      <li><a href="#checks">8. 정기 점검</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header class="hero" id="overview">
+      <h1>Chemstep 관리 문서</h1>
+      <p>프로젝트 오너가 반복적으로 챙겨야 하는 항목 정리. 코드 세부사항이 아니라 "무엇을 설정하고, 무엇을 점검하고, 무엇이 위험한지"에 초점을 둡니다. 원본 마크다운은 <code>manager.md</code>.</p>
+      <div class="stack-badges">
+        <span class="badge">Next.js (App Router)</span>
+        <span class="badge">Supabase</span>
+        <span class="badge">Vercel</span>
+        <span class="badge">github.com/arthurna75/Chemstep · main</span>
+      </div>
+    </header>
+
+    <section id="env">
+      <h2><span class="num">1</span> 환경변수 관리</h2>
+      <table>
+        <thead><tr><th>변수</th><th>용도</th><th>설정 위치</th></tr></thead>
+        <tbody>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_URL</code></td><td>Supabase 프로젝트 접속 주소</td><td>Vercel → Project Settings → Environment Variables, 로컬은 <code>.env.local</code></td></tr>
+          <tr><td><code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code></td><td>Supabase 익명 접근 키(공개 키, 진짜 시크릿 아님)</td><td>위와 동일</td></tr>
+        </tbody>
+      </table>
+      <p>이 두 개가 전부입니다. 서비스 롤 키나 외부(결제/이메일/AI 등) API 키는 코드 어디에도 없습니다. 두 값 다 없어도 앱이 죽지 않고 홈페이지에 "Supabase 연결이 필요합니다" 안내가 뜹니다. 값은 Supabase 대시보드 → Project Settings → API에서 확인합니다.</p>
+    </section>
+
+    <section id="db">
+      <h2><span class="num">2</span> 데이터베이스 관리</h2>
+      <p><code>supabase/schema.sql</code> 기준 — <code>chapters</code> → <code>lessons</code> → <code>quizzes</code> → <code>quiz_options</code>(콘텐츠, 전체 공개 읽기), <code>user_progress</code> / <code>user_answers</code>(본인 데이터만 접근), <code>guest_codes</code>(게스트 조회 코드). 모든 테이블에 RLS가 활성화되어 있습니다.</p>
+      <div class="warn">
+        <strong>⚠ 마이그레이션 추적 없음</strong>
+        <code>supabase/</code> 안에 마이그레이션 폴더가 없습니다. 스키마를 바꾸면 <code>schema.sql</code>을 수정한 뒤 Supabase SQL Editor에 수동으로 붙여넣어 실행해야 하고, 운영 DB에 무엇이 실제로 반영돼 있는지 추적할 방법이 없습니다.
+      </div>
+      <div class="warn">
+        <strong>⚠ schema.sql이 실제 DB 상태와 불일치</strong>
+        <code>schema.sql</code>의 시드 INSERT는 5개 단원만 넣지만, 실제로는 <code>seed_chapter1.sql</code> ~ <code>seed_chapter8_*.sql</code>까지 8개 단원 콘텐츠가 별도 실행되어 있습니다. <code>schema.sql</code>만으로 새 환경을 구축하면 3개 단원이 빠집니다.
+      </div>
+      <p><strong>시드 파일 현황</strong>: <code>seed_chapter1.sql</code>은 구버전, <code>seed_chapter1_v2.sql</code>이 최종본(1단원은 v2만 실행). 나머지는 챕터당 파일 하나씩.</p>
+    </section>
+
+    <section id="content">
+      <h2><span class="num">3</span> 콘텐츠 발행 워크플로우</h2>
+      <p>새 단원/레슨 추가나 기존 콘텐츠 수정은 <code>/new-chapter</code> 스킬(<code>.claude/commands/new-chapter.md</code>)이 유일한 공식 절차입니다.</p>
+      <ol class="steps">
+        <li>Supabase에서 <code>chapter_id</code> 확인</li>
+        <li>레슨 5개 설계 (기초 → 심화)</li>
+        <li><code>supabase/seed_&lt;슬러그&gt;.sql</code> 작성</li>
+        <li>레슨별 SVG 일러스트 작성</li>
+        <li><code>illustrations/index.ts</code> 매핑 추가</li>
+        <li>비교 데이터는 <code>ChemTable</code> 기반 Visuals로</li>
+        <li><code>npm run build</code> 통과 확인</li>
+        <li><code>git commit &amp;&amp; git push</code> (→ Vercel 자동 배포)</li>
+        <li><strong>Supabase SQL Editor에 seed SQL을 직접 붙여넣어 실행</strong> — 빠뜨리면 코드는 배포됐는데 콘텐츠는 안 보임</li>
+      </ol>
+      <h3>본문(content) 마크업 문법 치트시트</h3>
+      <table>
+        <thead><tr><th>문법</th><th>결과</th></tr></thead>
+        <tbody>
+          <tr><td><code>■ 제목</code> / <code>■ 제목 (기초|핵심|심화)</code></td><td>소제목 (+ 난이도 뱃지)</td></tr>
+          <tr><td><code>**단어**</code></td><td>굵게</td></tr>
+          <tr><td><code>① ② ③ ...</code></td><td>번호 목록</td></tr>
+          <tr><td><code>- 항목</code> / <code>&nbsp;&nbsp;&nbsp;- 하위항목</code></td><td>불릿 목록 (들여쓰기로 중첩)</td></tr>
+          <tr><td><code>※ 설명</code></td><td>콜아웃 박스</td></tr>
+          <tr><td><code>{{용어::정의}}</code></td><td>클릭하면 펼쳐지는 용어 툴팁</td></tr>
+          <tr><td><code>[텍스트](https://...)</code></td><td>외부 링크</td></tr>
+          <tr><td><code>[텍스트](lesson:챕터제목/레슨순번)</code></td><td>다른 레슨으로 링크</td></tr>
+          <tr><td><code>[텍스트](chapter:챕터제목)</code></td><td>단원 목록으로 링크</td></tr>
+        </tbody>
+      </table>
+      <p><code>↑</code>/<code>↓</code>는 반응식 표기 전용(<code>H₂↑</code>)으로만 쓰고, 증가/감소 추세는 단어로 씁니다(파서가 둘을 구분하지 못함).</p>
+    </section>
+
+    <section id="auth">
+      <h2><span class="num">4</span> 인증 &amp; 게스트 코드</h2>
+      <p>이메일/비밀번호 가입만 지원합니다(OAuth 없음). 방문자는 로그인 없이도 익명 계정으로 자동 시작해 학습 진행상황이 쌓입니다. <code>/progress</code>에서 게스트 코드를 발급받아, 로그인 없이 코드만으로 진행상황을 조회할 수 있습니다(<code>get_progress_by_code</code> RPC, 읽기 전용). 나중에 회원가입하면 기존 익명 계정이 실제 계정으로 업그레이드되어 진행상황이 유지됩니다.</p>
+      <div class="warn">
+        <strong>⚠ 게스트 코드는 비밀번호처럼 취급</strong>
+        코드를 아는 사람은 누구나 그 사용자의 진행상황을 볼 수 있습니다.
+      </div>
+    </section>
+
+    <section id="deploy">
+      <h2><span class="num">5</span> 배포 파이프라인</h2>
+      <p>CI 없음. <code>main</code>에 push하는 순간 Vercel이 자동으로 빌드/배포합니다(테스트·린트 게이트 없음). 커스텀 도메인/robots.txt/sitemap 설정은 없으며 별도로 관리할 것도 없습니다.</p>
+      <ul class="checklist">
+        <li><input type="checkbox" /> push 전에 로컬에서 <code>npm run build</code>(타입 에러 확인) 실행</li>
+        <li><input type="checkbox" /> push 전에 <code>npm run lint</code> 실행</li>
+      </ul>
+    </section>
+
+    <section id="features">
+      <h2><span class="num">6</span> 기능 인벤토리</h2>
+      <table>
+        <thead><tr><th>경로</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td>홈 — 통계, 단원 미리보기, 이어서 학습하기</td></tr>
+          <tr><td><code>/chapters</code>, <code>/chapters/[id]</code></td><td>단원 목록/상세</td></tr>
+          <tr><td><code>/chapters/[id]/lessons/[id]</code></td><td>레슨 본문 (개념/공식/예제/비유)</td></tr>
+          <tr><td><code>/chapters/[id]/lessons/[id]/quiz</code></td><td>퀴즈</td></tr>
+          <tr><td><code>/login</code>, <code>/signup</code></td><td>로그인/회원가입</td></tr>
+          <tr><td><code>/progress</code></td><td>본인 진행상황 · 게스트 코드 관리/조회</td></tr>
+          <tr><td>(플로팅 버튼)</td><td>주기율표 뷰어 모달 — 별도 라우트 아님</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="risks">
+      <h2><span class="num">7</span> 알려진 리스크 / 기술부채 체크리스트</h2>
+      <ul class="checklist">
+        <li><input type="checkbox" /> DB 마이그레이션 추적 시스템 없음 (섹션 2)</li>
+        <li><input type="checkbox" /> <code>schema.sql</code>이 실제 운영 DB(8단원)와 불일치 (섹션 2)</li>
+        <li><input type="checkbox" /> CI/테스트/린트 자동 게이트 없음 — push 즉시 배포 (섹션 5)</li>
+        <li><input type="checkbox" /> 콘텐츠 발행에 관리자 UI 없음 — SQL Editor 수동 실행이 유일한 경로 (섹션 3)</li>
+        <li><input type="checkbox" /> <code>README.md</code>가 아직 create-next-app 기본 문구 그대로 — 신규 협업자는 이 문서를 대신 참고</li>
+      </ul>
+    </section>
+
+    <section id="checks">
+      <h2><span class="num">8</span> 정기 점검 체크리스트</h2>
+      <ul class="checklist">
+        <li><input type="checkbox" /> 새 단원/레슨 배포 후 실제 사이트에서 콘텐츠가 보이는지 확인 (SQL Editor 실행 누락 여부)</li>
+        <li><input type="checkbox" /> Supabase 대시보드에서 사용량/쿼터(DB 용량, Auth 사용자 수 등) 확인</li>
+        <li><input type="checkbox" /> Vercel 대시보드에서 최근 배포 상태(빌드 실패 여부) 확인</li>
+        <li><input type="checkbox" /> <code>guest_codes</code> 테이블에 비정상적으로 많은 코드가 생성되고 있지 않은지 확인</li>
+        <li><input type="checkbox" /> <code>schema.sql</code>과 운영 DB가 계속 동기화되고 있는지 재확인</li>
+      </ul>
+    </section>
+
+    <footer>Chemstep 관리 문서 · 로컬 정적 페이지 · 원본: manager.md</footer>
+  </main>
+</div>
+</body>
+</html>
