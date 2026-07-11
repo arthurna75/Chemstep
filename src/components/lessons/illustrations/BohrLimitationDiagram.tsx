@@ -32,16 +32,15 @@ export default function BohrLimitationDiagram() {
           <text x={325} y={66} textAnchor="middle" fontSize={12} fontWeight="bold" fill="#B91C1C">
             양자역학적 모형
           </text>
-          {Array.from({ length: 140 }).map((_, i) => {
-            const angle = (i * 137.5 * Math.PI) / 180
-            const rBase = 15 + (i % 7) * 9
-            const jitter = ((i * 53) % 17) - 8
-            const r = Math.max(8, rBase + jitter * 0.4)
-            const x = 325 + r * Math.cos(angle)
-            const y = 175 + r * Math.sin(angle) * 0.9
-            const opacity = Math.max(0.12, 0.85 - r / 90)
-            return <circle key={i} cx={x} cy={y} r={2.1} fill="#EF4444" opacity={opacity} />
-          })}
+          <defs>
+            <radialGradient id="quantumCloudDiagram" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#EF4444" stopOpacity={0.9} />
+              <stop offset="35%" stopColor="#EF4444" stopOpacity={0.55} />
+              <stop offset="70%" stopColor="#EF4444" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#EF4444" stopOpacity={0} />
+            </radialGradient>
+          </defs>
+          <circle cx={325} cy={175} r={78} fill="url(#quantumCloudDiagram)" />
           <circle cx={325} cy={175} r={16} fill="#FECACA" stroke="#EF4444" strokeWidth={1.5} />
           <text x={325} y={180} textAnchor="middle" fontSize={10} fontWeight="bold" fill="#B91C1C">핵</text>
           <text x={325} y={258} textAnchor="middle" fontSize={10} fill="#B91C1C">

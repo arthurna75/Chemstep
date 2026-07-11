@@ -25,16 +25,16 @@ export default function ElectronCloudDiagram() {
           전자 구름 모형 (1s 오비탈)
         </text>
 
-        {/* 왼쪽: 구름 점묘 */}
-        {Array.from({ length: 220 }).map((_, i) => {
-          const angle = (i * 137.5 * Math.PI) / 180
-          const rBase = 8 + (i % 11) * 8
-          const r = rBase
-          const x = cx + r * Math.cos(angle)
-          const y = cy + r * Math.sin(angle) * 0.95
-          const opacity = Math.max(0.08, 0.8 - r / 100)
-          return <circle key={i} cx={x} cy={y} r={2} fill="#3B82F6" opacity={opacity} />
-        })}
+        {/* 왼쪽: 중심 대칭 확률 구름 (핵에서 멀어질수록 옅어짐) */}
+        <defs>
+          <radialGradient id="electronCloud1s" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#3B82F6" stopOpacity={0.9} />
+            <stop offset="35%" stopColor="#3B82F6" stopOpacity={0.55} />
+            <stop offset="70%" stopColor="#3B82F6" stopOpacity={0.2} />
+            <stop offset="100%" stopColor="#3B82F6" stopOpacity={0} />
+          </radialGradient>
+        </defs>
+        <circle cx={cx} cy={cy} r={96} fill="url(#electronCloud1s)" />
         <circle cx={cx} cy={cy} r={14} fill="#DBEAFE" stroke="#3B82F6" strokeWidth={1.5} />
         <text x={cx} y={cy + 4} textAnchor="middle" fontSize={9} fontWeight="bold" fill="#1E40AF">핵</text>
         <text x={cx} y={296} textAnchor="middle" fontSize={10} fill="#334155">확률 구름 (진할수록 확률 높음)</text>
