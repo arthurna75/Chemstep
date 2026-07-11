@@ -19,23 +19,26 @@ const PANELS: Panel[] = [
 
 const CY = 118
 
+// 등각투상 배치: z는 수직 위, x/y는 서로 60°씩 벌어진 좌하/우하 대각선.
+// 각 축은 원점에서 뻗어나가는 두 반직선(양의 방향 실선+화살표, 음의 방향 점선)이
+// 서로 정확히 반대 방향 벡터를 이루도록 계산해 하나의 완전한 직선처럼 보이게 한다.
 function AxisTriad({ cx }: { cx: number }) {
   return (
     <g>
-      {/* z축: 수직 */}
+      {/* z축: 방향 벡터 (0, -1) */}
       <line x1={cx} y1={CY} x2={cx} y2={CY - 42} stroke={AXIS_COLOR} strokeWidth={1.3} markerEnd="url(#axisArrow)" />
       <line x1={cx} y1={CY} x2={cx} y2={CY + 26} stroke={AXIS_COLOR} strokeWidth={1} strokeDasharray="2,3" />
       <text x={cx} y={CY - 48} textAnchor="middle" fontSize={9} fill={AXIS_COLOR}>z</text>
 
-      {/* y축: 우상 대각선 */}
-      <line x1={cx} y1={CY} x2={cx + 36} y2={CY - 21} stroke={AXIS_COLOR} strokeWidth={1.3} markerEnd="url(#axisArrow)" />
-      <line x1={cx} y1={CY} x2={cx - 23} y2={CY + 13} stroke={AXIS_COLOR} strokeWidth={1} strokeDasharray="2,3" />
-      <text x={cx + 42} y={CY - 24} textAnchor="middle" fontSize={9} fill={AXIS_COLOR}>y</text>
+      {/* y축: 방향 벡터 (0.866, 0.5), 우하 대각선 */}
+      <line x1={cx} y1={CY} x2={cx + 36} y2={CY + 21} stroke={AXIS_COLOR} strokeWidth={1.3} markerEnd="url(#axisArrow)" />
+      <line x1={cx} y1={CY} x2={cx - 23} y2={CY - 13} stroke={AXIS_COLOR} strokeWidth={1} strokeDasharray="2,3" />
+      <text x={cx + 42} y={CY + 26} textAnchor="middle" fontSize={9} fill={AXIS_COLOR}>y</text>
 
-      {/* x축: 좌하 대각선 */}
-      <line x1={cx} y1={CY} x2={cx - 40} y2={CY + 14} stroke={AXIS_COLOR} strokeWidth={1.3} markerEnd="url(#axisArrow)" />
-      <line x1={cx} y1={CY} x2={cx + 24} y2={CY - 9} stroke={AXIS_COLOR} strokeWidth={1} strokeDasharray="2,3" />
-      <text x={cx - 46} y={CY + 19} textAnchor="middle" fontSize={9} fill={AXIS_COLOR}>x</text>
+      {/* x축: 방향 벡터 (-0.866, 0.5), 좌하 대각선 */}
+      <line x1={cx} y1={CY} x2={cx - 36} y2={CY + 21} stroke={AXIS_COLOR} strokeWidth={1.3} markerEnd="url(#axisArrow)" />
+      <line x1={cx} y1={CY} x2={cx + 23} y2={CY - 13} stroke={AXIS_COLOR} strokeWidth={1} strokeDasharray="2,3" />
+      <text x={cx - 42} y={CY + 26} textAnchor="middle" fontSize={9} fill={AXIS_COLOR}>x</text>
     </g>
   )
 }
@@ -85,14 +88,14 @@ export default function SPOrbitalShapeDiagram() {
         <circle cx={PANELS[0].cx} cy={CY} r={22} fill="url(#sOrbitalGrad)" stroke={PANELS[0].edgeColor} strokeWidth={1.2} />
         <circle cx={PANELS[0].cx} cy={CY} r={2.5} fill="#334155" />
 
-        {/* p_x 오비탈: x축 대각선 방향 아령형 */}
-        <ellipse cx={PANELS[1].cx - 21} cy={CY + 7.5} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-20 ${PANELS[1].cx - 21} ${CY + 7.5})`} />
-        <ellipse cx={PANELS[1].cx + 21} cy={CY - 7.5} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-20 ${PANELS[1].cx + 21} ${CY - 7.5})`} />
+        {/* p_x 오비탈: x축 방향 벡터 (-0.866, 0.5)에 맞춘 아령형 */}
+        <ellipse cx={PANELS[1].cx - 19} cy={CY + 11} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-30 ${PANELS[1].cx - 19} ${CY + 11})`} />
+        <ellipse cx={PANELS[1].cx + 19} cy={CY - 11} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-30 ${PANELS[1].cx + 19} ${CY - 11})`} />
         <circle cx={PANELS[1].cx} cy={CY} r={2.5} fill="#334155" />
 
-        {/* p_y 오비탈: y축 대각선 방향 아령형 */}
-        <ellipse cx={PANELS[2].cx + 19} cy={CY - 11} rx={18} ry={9} fill="url(#pyOrbitalGrad)" stroke={PANELS[2].edgeColor} strokeWidth={1.2} transform={`rotate(-30 ${PANELS[2].cx + 19} ${CY - 11})`} />
-        <ellipse cx={PANELS[2].cx - 19} cy={CY + 11} rx={18} ry={9} fill="url(#pyOrbitalGrad)" stroke={PANELS[2].edgeColor} strokeWidth={1.2} transform={`rotate(-30 ${PANELS[2].cx - 19} ${CY + 11})`} />
+        {/* p_y 오비탈: y축 방향 벡터 (0.866, 0.5)에 맞춘 아령형 */}
+        <ellipse cx={PANELS[2].cx + 19} cy={CY + 11} rx={18} ry={9} fill="url(#pyOrbitalGrad)" stroke={PANELS[2].edgeColor} strokeWidth={1.2} transform={`rotate(30 ${PANELS[2].cx + 19} ${CY + 11})`} />
+        <ellipse cx={PANELS[2].cx - 19} cy={CY - 11} rx={18} ry={9} fill="url(#pyOrbitalGrad)" stroke={PANELS[2].edgeColor} strokeWidth={1.2} transform={`rotate(30 ${PANELS[2].cx - 19} ${CY - 11})`} />
         <circle cx={PANELS[2].cx} cy={CY} r={2.5} fill="#334155" />
 
         {/* p_z 오비탈: z축(수직) 방향 아령형 */}
