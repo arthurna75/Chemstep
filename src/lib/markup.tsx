@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import GlossaryTerm from '@/components/lessons/GlossaryTerm'
-import { getChapterByTitle, getLessonByChapterTitleAndOrder } from '@/lib/data'
 
 export type LinkMap = Map<string, string | null>
 
@@ -22,7 +21,7 @@ type Block =
 
 const CIRCLED_RE = /^[①②③④⑤⑥⑦⑧⑨⑩]\s*/
 const BADGE_RE = /\s*\((기초|핵심|심화)\)\s*$/
-const TOKEN_RE = /\{\{([^{}]+?)::([^{}]+?)\}\}|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|(→|↔)/g
+const TOKEN_RE = /\{\{([^{}]+?)::([^{}]+?)\}\}|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|(→|↔)|(\d*p)_([xyz])\b/g
 const INTERNAL_LINK_RE = /\[[^\]]+\]\((lesson:[^)]+|chapter:[^)]+)\)/g
 
 function splitBlocks(text: string): Block[] {
@@ -157,6 +156,13 @@ function renderInline(text: string, keyPrefix: string, linkMap?: LinkMap): React
           {match[6]}
         </span>
       )
+    } else if (match[7] !== undefined) {
+      nodes.push(
+        <span key={key}>
+          {match[7]}
+          <sub>{match[8]}</sub>
+        </span>
+      )
     }
 
     lastIndex = start + match[0].length
@@ -255,36 +261,4 @@ export function extractInternalLinkTargets(text: string): string[] {
     targets.add(match[1])
   }
   return [...targets]
-}
-
-export async function resolveLinkMap(text: string): Promise<LinkMap> {
-  const targets = extractInternalLinkTargets(text)
-  const map: LinkMap = new Map()
-
-  await Promise.all(
-    targets.map(async target => {
-      if (target.startsWith('lesson:')) {
-        const rest = target.slice('lesson:'.length)
-        const sepIdx = rest.lastIndexOf('/')
-        if (sepIdx === -1) {
-          map.set(target, null)
-          return
-        }
-        const chapterTitle = rest.slice(0, sepIdx)
-        const orderIndex = Number(rest.slice(sepIdx + 1))
-        if (!Number.isFinite(orderIndex)) {
-          map.set(target, null)
-          return
-        }
-        const result = await getLessonByChapterTitleAndOrder(chapterTitle, orderIndex)
-        map.set(target, result ? `/chapters/${result.chapterId}/lessons/${result.lessonId}` : null)
-      } else if (target.startsWith('chapter:')) {
-        const chapterTitle = target.slice('chapter:'.length)
-        const chapter = await getChapterByTitle(chapterTitle)
-        map.set(target, chapter ? `/chapters/${chapter.id}` : null)
-      }
-    })
-  )
-
-  return map
 }

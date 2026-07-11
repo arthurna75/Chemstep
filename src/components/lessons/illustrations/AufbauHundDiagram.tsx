@@ -65,7 +65,7 @@ export default function AufbauHundDiagram() {
             </g>
           ))}
           <text x={startX + boxSize * 1.5} y={boxY + 42} textAnchor="middle" fontSize={9} fill="#B45309">
-            2pₓ  2p_y  2p_z
+            2p<tspan dy={2} fontSize={6.5}>x</tspan><tspan dy={-2}>{'  2p'}</tspan><tspan dy={2} fontSize={6.5}>y</tspan><tspan dy={-2}>{'  2p'}</tspan><tspan dy={2} fontSize={6.5}>z</tspan>
           </text>
         </g>
 

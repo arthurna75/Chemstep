@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react'
+
 interface ChemTableProps {
   headers: string[]
-  rows: string[][]
+  rows: ReactNode[][]
   caption?: string
   highlightCol?: number  // 0-based, 이 컬럼 셀을 강조
   dense?: boolean        // 상하 padding을 좁게

@@ -1,3 +1,5 @@
+import { renderMarkup } from '@/lib/markup'
+
 interface Props {
   explanation: string
   isCorrect: boolean
@@ -14,7 +16,7 @@ export default function ExplanationBox({ explanation, isCorrect }: Props) {
         {isCorrect ? '🎉 정답입니다!' : '❌ 오답입니다'}
       </p>
       {explanation && (
-        <p className="text-sm text-gray-700 leading-relaxed">{explanation}</p>
+        <p className="text-sm text-gray-700 leading-relaxed">{renderMarkup(explanation)}</p>
       )}
     </div>
   )

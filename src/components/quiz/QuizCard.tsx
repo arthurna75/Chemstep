@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import type { QuizWithOptions } from '@/types'
+import { renderMarkup } from '@/lib/markup'
 import OptionButton from './OptionButton'
 import ExplanationBox from './ExplanationBox'
 
@@ -43,7 +44,7 @@ export default function QuizCard({ quiz, questionNumber, total, onAnswer }: Prop
         </span>
       </div>
 
-      <p className="text-gray-900 font-medium mb-5 leading-relaxed">{quiz.question}</p>
+      <p className="text-gray-900 font-medium mb-5 leading-relaxed">{renderMarkup(quiz.question)}</p>
 
       <div className="space-y-2">
         {sortedOptions.map((option, i) => (

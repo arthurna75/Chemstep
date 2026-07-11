@@ -1,4 +1,5 @@
-import { renderMarkup, resolveLinkMap } from '@/lib/markup'
+import { renderMarkup } from '@/lib/markup'
+import { resolveLinkMap } from '@/lib/markup-links'
 
 interface Props {
   content: string

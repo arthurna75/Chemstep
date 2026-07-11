@@ -2,17 +2,19 @@ const AXIS_COLOR = '#64748B'
 
 type Panel = {
   cx: number
-  label: string
+  labelBefore: string
+  axis?: 'x' | 'y' | 'z'
+  labelAfter: string
   labelColor: string
   gradId: string
   edgeColor: string
 }
 
 const PANELS: Panel[] = [
-  { cx: 69, label: 's 오비탈', labelColor: '#1E40AF', gradId: 'sOrbitalGrad', edgeColor: '#3B82F6' },
-  { cx: 176, label: 'pₓ 오비탈', labelColor: '#B45309', gradId: 'pxOrbitalGrad', edgeColor: '#F59E0B' },
-  { cx: 284, label: 'p_y 오비탈', labelColor: '#15803D', gradId: 'pyOrbitalGrad', edgeColor: '#22C55E' },
-  { cx: 391, label: 'p_z 오비탈', labelColor: '#7E22CE', gradId: 'pzOrbitalGrad', edgeColor: '#A855F7' },
+  { cx: 69, labelBefore: 's', labelAfter: ' 오비탈', labelColor: '#1E40AF', gradId: 'sOrbitalGrad', edgeColor: '#3B82F6' },
+  { cx: 176, labelBefore: 'p', axis: 'x', labelAfter: ' 오비탈', labelColor: '#B45309', gradId: 'pxOrbitalGrad', edgeColor: '#F59E0B' },
+  { cx: 284, labelBefore: 'p', axis: 'y', labelAfter: ' 오비탈', labelColor: '#15803D', gradId: 'pyOrbitalGrad', edgeColor: '#22C55E' },
+  { cx: 391, labelBefore: 'p', axis: 'z', labelAfter: ' 오비탈', labelColor: '#7E22CE', gradId: 'pzOrbitalGrad', edgeColor: '#A855F7' },
 ]
 
 const CY = 118
@@ -83,7 +85,7 @@ export default function SPOrbitalShapeDiagram() {
         <circle cx={PANELS[0].cx} cy={CY} r={22} fill="url(#sOrbitalGrad)" stroke={PANELS[0].edgeColor} strokeWidth={1.2} />
         <circle cx={PANELS[0].cx} cy={CY} r={2.5} fill="#334155" />
 
-        {/* pₓ 오비탈: x축 대각선 방향 아령형 */}
+        {/* p_x 오비탈: x축 대각선 방향 아령형 */}
         <ellipse cx={PANELS[1].cx - 21} cy={CY + 7.5} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-20 ${PANELS[1].cx - 21} ${CY + 7.5})`} />
         <ellipse cx={PANELS[1].cx + 21} cy={CY - 7.5} rx={18} ry={9} fill="url(#pxOrbitalGrad)" stroke={PANELS[1].edgeColor} strokeWidth={1.2} transform={`rotate(-20 ${PANELS[1].cx + 21} ${CY - 7.5})`} />
         <circle cx={PANELS[1].cx} cy={CY} r={2.5} fill="#334155" />
@@ -100,7 +102,15 @@ export default function SPOrbitalShapeDiagram() {
 
         {PANELS.map((panel) => (
           <text key={`label-${panel.gradId}`} x={panel.cx} y={184} textAnchor="middle" fontSize={10} fontWeight="bold" fill={panel.labelColor}>
-            {panel.label}
+            {panel.axis ? (
+              <>
+                {panel.labelBefore}
+                <tspan dy={2} fontSize={7}>{panel.axis}</tspan>
+                <tspan dy={-2}>{panel.labelAfter}</tspan>
+              </>
+            ) : (
+              `${panel.labelBefore}${panel.labelAfter}`
+            )}
           </text>
         ))}
 

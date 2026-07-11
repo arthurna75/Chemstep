@@ -1,5 +1,7 @@
 'use client'
 
+import { renderMarkup } from '@/lib/markup'
+
 interface Props {
   content: string
   index: number
@@ -25,7 +27,7 @@ export default function OptionButton({ content, index, status, onClick }: Props)
       disabled={status === 'disabled'}
     >
       <span className="font-bold shrink-0">{labels[index] ?? index + 1}</span>
-      <span>{content}</span>
+      <span>{renderMarkup(content)}</span>
     </button>
   )
 }
