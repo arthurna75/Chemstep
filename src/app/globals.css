@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@media print {
+  /* 용어 설명(GlossaryTerm)은 <details>/<summary>로 접혀 있는데, 인쇄 시에는 강제로 펼쳐서 보이게 한다 */
+  details:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+}

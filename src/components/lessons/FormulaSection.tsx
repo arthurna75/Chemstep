@@ -9,7 +9,7 @@ export default function FormulaSection({ formulas }: Props) {
   if (formulas.length === 0) return null
 
   return (
-    <section className="bg-blue-50 rounded-xl border border-blue-200 p-6">
+    <section className="bg-blue-50 rounded-xl border border-blue-200 p-6 print:break-inside-avoid">
       <h2 className="text-lg font-semibold text-blue-900 mb-4 flex items-center gap-2">
         <span>📐</span> 핵심 공식
       </h2>

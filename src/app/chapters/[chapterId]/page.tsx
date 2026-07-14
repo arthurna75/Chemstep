@@ -38,7 +38,18 @@ export default async function ChapterDetailPage({ params }: Props) {
 
       {/* 레슨 목록 */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-3">레슨 목록</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-gray-900">레슨 목록</h2>
+          {lessons.length > 0 && (
+            <Link
+              href={`/chapters/${chapterId}/print`}
+              target="_blank"
+              className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-medium"
+            >
+              <span>📄</span> PDF로 출력
+            </Link>
+          )}
+        </div>
         {lessons.length > 0 ? (
           <div className="grid gap-3">
             {lessons.map((lesson, i) => (

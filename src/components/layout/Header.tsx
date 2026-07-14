@@ -7,7 +7,7 @@ export default async function Header() {
   const isRealAccount = !!user && !user.is_anonymous
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <header className="print:hidden bg-white border-b border-gray-200 sticky top-0 z-10">
       <div className="mx-auto max-w-4xl px-4 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-blue-600 text-lg">
           <span>⚗️</span>

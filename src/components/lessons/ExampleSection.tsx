@@ -9,7 +9,7 @@ export default function ExampleSection({ examples }: Props) {
   if (examples.length === 0) return null
 
   return (
-    <section className="bg-white rounded-xl border border-gray-200 p-6">
+    <section className="bg-white rounded-xl border border-gray-200 p-6 print:break-inside-avoid">
       <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
         <span>✏️</span> 예제
       </h2>

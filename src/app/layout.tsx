@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko" className={geist.variable}>
       <body className="min-h-screen bg-gray-50 font-sans antialiased" suppressHydrationWarning>
         <Header />
-        <main className="mx-auto max-w-4xl px-4 py-8">{children}</main>
+        <main className="mx-auto max-w-4xl px-4 py-8 print:max-w-none print:p-0">{children}</main>
         <PeriodicTableViewer />
       </body>
     </html>

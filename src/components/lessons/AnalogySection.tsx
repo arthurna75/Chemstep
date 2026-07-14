@@ -6,7 +6,7 @@ interface Props {
 
 export default function AnalogySection({ analogy }: Props) {
   return (
-    <section className="bg-yellow-50 rounded-xl border border-yellow-200 p-6">
+    <section className="bg-yellow-50 rounded-xl border border-yellow-200 p-6 print:break-inside-avoid">
       <h2 className="text-lg font-semibold text-yellow-900 mb-3 flex items-center gap-2">
         <span>💡</span> 쉬운 비유
       </h2>
