@@ -46,7 +46,7 @@ export default async function ChapterDetailPage({ params }: Props) {
               target="_blank"
               className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 font-medium"
             >
-              <span>📄</span> PDF로 출력
+              <span>📄</span> 인쇄/PDF 저장
             </Link>
           )}
         </div>
